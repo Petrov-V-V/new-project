@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 @Repository
 public class Database {
-    ArrayList<ArrayList<Object>> listOfTransfers = new ArrayList<ArrayList<Object>>();
+    private ArrayList<ArrayList<Object>> listOfTransfers = new ArrayList<ArrayList<Object>>();
 
     public void writeTransfer(String recipient, BigDecimal amount) {
         listOfTransfers.add(new ArrayList<Object>(Arrays.asList(recipient, amount)));
