@@ -25,7 +25,7 @@ public class ApplicationService {
     public void verifyUserAndTransfer() {
         boolean isCustomer = bankClientsApp.isCustomer(customerData.getUserId());
         if (isCustomer) {
-            transferByPhoneApp.transferAmount(customerData.getPhoneNumber(), customerData.getAmount());
+            transferByPhoneApp.transferAmount(customerData.getPhoneNumberToTransfer(), customerData.getAmount());
             database.writeTransfer(customerData.getUserId(), customerData.getAmount());
         } else {
             System.out.println("Error: User is not a bank customer.");

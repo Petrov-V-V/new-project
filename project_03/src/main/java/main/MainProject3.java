@@ -13,9 +13,13 @@ public class MainProject3 {
         ApplicationService applicationService = context.getBean(ApplicationService.class);
         CustomerData customer = context.getBean(CustomerData.class);
         customer.setUserId("134567811");
-        customer.setPhoneNumber("+934567890");
+        customer.setPhoneNumberToTransfer("+934567890");
         customer.setAmount(BigDecimal.valueOf(100.0));
+        applicationService.verifyUserAndTransfer();
 
+        customer.setUserId("218456781");
+        customer.setPhoneNumberToTransfer("+934567890");
+        customer.setAmount(BigDecimal.valueOf(213));
         applicationService.verifyUserAndTransfer();
 
         context.close();

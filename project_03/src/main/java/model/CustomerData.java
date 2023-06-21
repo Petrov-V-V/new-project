@@ -10,14 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class CustomerData {
     private String userId;
-    private String phoneNumber;
+    private String phoneNumberToTransfer;
     private BigDecimal amount;
 
     public CustomerData() {}
 
-    public CustomerData(String userId, String phoneNumber, BigDecimal amount) {
+    public CustomerData(String userId, String phoneNumberToTransfer, BigDecimal amount) {
         this.userId = userId;
-        this.phoneNumber = phoneNumber;
+        this.phoneNumberToTransfer = phoneNumberToTransfer;
         this.amount = amount;
     }
 
@@ -25,8 +25,8 @@ public class CustomerData {
         return userId;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhoneNumberToTransfer() {
+        return phoneNumberToTransfer;
   }
 
     public BigDecimal getAmount() {
@@ -37,8 +37,8 @@ public class CustomerData {
         this.userId = userId;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumberToTransfer(String phoneNumberToTransfer) {
+        this.phoneNumberToTransfer = phoneNumberToTransfer;
     }
 
     public void setAmount(BigDecimal amount) {
