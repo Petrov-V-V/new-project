@@ -5,17 +5,17 @@ import java.math.BigDecimal;
 import org.springframework.stereotype.Component;
 
 /*
- * Клиент
+ * Данные клиента
  */
 @Component
-public class Customer {
+public class CustomerData {
     private String userId;
     private String phoneNumber;
     private BigDecimal amount;
 
-    public Customer() {}
+    public CustomerData() {}
 
-    public Customer(String userId, String phoneNumber, BigDecimal amount) {
+    public CustomerData(String userId, String phoneNumber, BigDecimal amount) {
         this.userId = userId;
         this.phoneNumber = phoneNumber;
         this.amount = amount;
