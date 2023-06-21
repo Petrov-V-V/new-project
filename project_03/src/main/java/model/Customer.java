@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 
 import org.springframework.stereotype.Component;
 
+/*
+ * Клиент
+ */
 @Component
 public class Customer {
     private String userId;
