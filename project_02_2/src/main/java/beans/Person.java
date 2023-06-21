@@ -2,25 +2,27 @@ package beans;
 
 import org.springframework.stereotype.Component;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import javax.annotation.PostConstruct;
 
+/*
+ * Человек
+ */
 @Component
 public class Person{
-    @Autowired
-    @Qualifier("firstParrot")
     private Parrot firstParrot;
-    
-    @Autowired
-    @Qualifier("secondParrot")
     private Parrot secondParrot;
-
-    @Autowired
     private Dog dog;
-
-    @Autowired
     private Cat cat;
 
-    private String name = "Igor";
+    private String name;
+
+    @Autowired
+    public Person(FirstParrot firstParrot, SecondParrot secondParrot, Dog dog, Cat cat) {
+        this.firstParrot = firstParrot;
+        this.secondParrot = secondParrot;
+        this.dog = dog;
+        this.cat = cat;
+    }
 
     @Override
     public String toString() {
@@ -31,6 +33,11 @@ public class Person{
 
     public Parrot getFirstParrot() {
         return firstParrot;
+    }
+
+    @PostConstruct
+    public void setName() {
+        this.name = "Igor";
     }
 
     public String getName() {

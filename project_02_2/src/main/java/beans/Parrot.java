@@ -2,15 +2,11 @@ package beans;
 
 import org.springframework.stereotype.Component;
 
+/*
+ * Попугай
+ */
 @Component
-public class Parrot{
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+public interface Parrot{
+    public String getName();
+    public void setName(String name);
 }

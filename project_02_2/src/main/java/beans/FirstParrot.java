@@ -1,19 +1,18 @@
 package beans;
 
 import javax.annotation.PostConstruct;
-
 import org.springframework.stereotype.Component;
 
 /*
- * Собака
+ * Первый попугай
  */
 @Component
-public class Dog{
+public class FirstParrot implements Parrot{
     private String name;
 
     @PostConstruct
     public void setName() {
-        this.name = "Fu Han";
+        this.name = "Ying";
     }
 
     public String getName() {
