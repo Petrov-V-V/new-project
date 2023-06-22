@@ -3,7 +3,7 @@ package ru.sber.exceptions;
 /**
  * Класс ошибки вызывающейся если аргументы метода null или пустые, если аргументами являются строки или коллекции
  */
-public class NullOrEmptyException extends Exception {
+public class NullOrEmptyException extends RuntimeException {
     public NullOrEmptyException() {
         super();
     }
