@@ -1,6 +1,6 @@
 package ru.sber.services;
 
-import ru.sber.entity.PostModel;
+import ru.sber.entity.PostInfo;
 import ru.sber.annotations.NotEmpty;
 import java.util.Collection;
 import java.util.logging.Logger;
@@ -16,19 +16,19 @@ public class PostService implements Post {
 
     @NotEmpty
     @Override
-    public void registerSender(PostModel sender){
+    public void registerSender(PostInfo sender){
         logger.info("Sender registred: " + sender.getSender());
     }
 
     @NotEmpty
     @Override
-    public void sendLetter(PostModel sender, String newMessage) {
+    public void sendLetter(PostInfo sender, String newMessage) {
         logger.info("Letter: '" + newMessage + "' was sent to the address " + sender.getAddress() + " by " + sender.getSender());
     }
 
     @NotEmpty
     @Override
-    public void sendParcel(PostModel sender, Collection<?> items) {
+    public void sendParcel(PostInfo sender, Collection<?> items) {
         logger.info("To the address " + sender.getAddress() + " parcel was sent by " + sender.getSender() + " with listed components: ");
         items.forEach(item -> logger.info(""+item));
     }

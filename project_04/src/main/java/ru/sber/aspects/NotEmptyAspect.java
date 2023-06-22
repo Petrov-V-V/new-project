@@ -20,7 +20,7 @@ public class NotEmptyAspect {
         for (int i = 0; i < args.length; i++) {
             if (args[i] == null || (args[i] instanceof String && ((String) args[i]).isEmpty())
                     || (args[i] instanceof Collection && ((Collection<?>) args[i]).isEmpty())) {
-                throw new NullOrEmptyException("Argument at index " + (i-1) + " must not be null or empty.");
+                throw new NullOrEmptyException("Argument at index " + (i-1) + " must not be null or empty");
             }
         }
     }

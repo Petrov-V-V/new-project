@@ -3,11 +3,11 @@ package ru.sber.entity;
 /**
  * Класс хранящий данные необходимые для отправки письма/посылки
  */
-public class PostModel {
+public class PostInfo {
     private String address;
     private String sender;
 
-    public PostModel(String address, String sender) {
+    public PostInfo(String address, String sender) {
         this.address = address;
         this.sender = sender;
     }
