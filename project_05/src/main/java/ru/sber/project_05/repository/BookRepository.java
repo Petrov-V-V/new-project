@@ -12,7 +12,7 @@ import java.util.List;
  * Класс харнящий список текйщих книг и позваляющий его получать
  */
 @Repository
-public class BookRepository {
+public class BookRepository implements BookRepositoryInterface {
 
   private List<Book> books = new ArrayList<>(List.of(new Book(BigDecimal.valueOf(949), "KGBT+", "\u0412\u0438\u043A\u0442\u043E\u0440 \u041F\u0435\u043B\u0435\u0432\u0438\u043D \u041E\u043B\u0435\u0433\u043E\u0432\u0438\u0447")
   , new Book(BigDecimal.valueOf(807), "\u041A\u043D\u0438\u0433\u0430 \u041D\u043E\u0447\u0438", "\u0411\u043B\u044D\u043A \u0425.")
