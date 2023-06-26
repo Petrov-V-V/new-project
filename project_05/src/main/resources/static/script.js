@@ -8,7 +8,7 @@ const backgroundText = [
 ];
 
 
-var myTimer = setInterval(() => {
+let myTimer = setInterval(() => {
   switchBackground('right');
   switchText('right');
   updateCarouselIndicators();

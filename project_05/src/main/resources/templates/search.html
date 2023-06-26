@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Bookish - Your Online Bookstore</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+  <div class="header">
+    <div class="container">
+      <div class="logo">BOOKISH</div>
+      <ul class="menu">
+        <li><a href="/home">Главная</a></li>
+        <li><a href="#">Категории</a></li>
+        <li><a href="#">Акции</a></li>
+        <li><a href="#">Рейтинги</a></li>
+        <li><a href="#">Контакты</a></li>
+      </ul>
+        <form>
+          <div class="search-container">
+          <input class="search-bar" type="text" name="search" placeholder="Search">
+          <button class="search-button" type="submit">
+            <i class="fas fa-search search-icon"></i>
+          </button>
+        </div>
+        </form>
+    </div>
+  </div>
+
+  <main>
+    <div class="results" >
+      <h1>Результаты поиска:</h1>
+    </div>
+    <div class="item" th:each="b: ${books}">
+        <h2 th:text="${b.name}"></h2>
+        <p th:text="${b.author}"></p>
+        <span>Цена:</span>
+        <span th:text="${b.price}"></span>
+        <span>р.</span>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Bookish. All rights reserved.</p>
+  </footer>
+</body>
+</html>

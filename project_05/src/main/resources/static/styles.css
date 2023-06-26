@@ -1,237 +1,255 @@
 body, h1, h2, h3, p, ul, li {
-    margin: 0;
-    padding: 0;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    color: #333;
-  }
-  
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 80px;
-    background-color: #232b2b;
-    z-index: 999;
-  }
-  
-  .container {
-    width: 90%;
-    margin: 0 auto;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  margin: 0;
+  padding: 0;
+}
 
-  .search-container {
-    display: flex;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #ffffff;
-  }
-  
-  .search-bar {
-    width: 300px;
-    height: 32px;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-    border: 1px solid #ccc;
-    border-right: none;
-    padding: 4px 8px;
-    font-size: 14px;
-  }
-    
-  .search-button {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    background: #ffffff;
-    border: 1px solid #ccc;
-    border-left: none;
-    cursor: pointer;
-    color: #000000;
-  }
-  
-  .menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-  
-  .menu li {
-    margin-left: 16px;
-  }
-  
-  .menu li a {
-    text-decoration: none;
-    font-size: 16px;
-    color: #ffffff;
-  }
-  
-  main {
-    padding: 100px;
-  }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #333;
+}
 
-  section {
-    margin-bottom: 40px;
-    display: flex;
-    justify-content: space-evenly;
-  }
-  
-  h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-  
-  .book {
-    display: grid;
-    width: 600px;
-    margin-right: 20px;
-    grid-template-rows: auto auto auto 25px;
-  }
-  
-  .book img {
-    width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-  }
-  
-  footer {
-    background-color: #232b2b;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .book h2 {
-    font-size: 20px;
-    margin-bottom: 5px;
-    text-align: center;
-  }
-  
-  .book p {
-    font-size: 14px;
-    margin-bottom: 5px;
-    text-align: center;
-  }
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background-color: #232b2b;
+  z-index: 999;
+}
 
-  .price {
-    font-family: 'Trebuchet MS', sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    text-align: center;
-  } 
-  
-  #novelty-books .book {
-    background-color: #eeeeee;
-    padding: 15px;
-  }
-  
-  #sales-hits .book {
-    background-color: #f5f5f5;
-    padding: 10px;
-  }
-  
-  #editors-choice .book {
-    background-color: #eeeeee;
-    padding: 10px;
-  }
-  
-  #coming-soon .book {
-    background-color: #f5f5f5;
-    padding: 10px;
-  }
-  
-  #top-background {
-    top: 80px;
-    left: 0;
-    width: 100%;
-    height: 540px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    z-index: 0;
-  }
-  
-  .background-switch-button {
-    position: absolute;
-    top: 280px;
-    font-size: 24px;
-    background: #ffffff;
-    border-radius: 32px;
-    border: 1px solid #ffffff;
-    color: #000000;
-    padding: 10px;
-    cursor: pointer;
-  }
+.container {
+  width: 90%;
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  .background-switch-button:active{
-    background: #8f8f8f;
-  }
-  
-  #left-button {
-    left: 20px;
-  }
-  
-  #right-button {
-    right: 20px;
-  }
+.search-container {
+  display: flex;
+}
 
-  .background-carousel {
-    position: absolute;
-  }
-  
-  .carousel-indicators {
-    position: absolute;
-    top: 570px;
-    left: 50%;
-    display: flex;
-  } 
-  
-  .carousel-indicators .indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: #630556;
-    margin: 0 6px;
-    opacity: 0.5;
-    cursor: pointer;
-  }
-  
-  .carousel-indicators .indicator.active {
-    opacity: 1;
-  }
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+}
 
-  #top-background.fade-out {
-    opacity: 0.33;
-    transition: opacity 1s;
-  }
-
-  #top-background.appear {
-    opacity: 1;
-    transition: opacity 1s;
-  }
+.search-bar {
+  width: 300px;
+  height: 32px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border: 1px solid #ccc;
+  border-right: none;
+  padding: 4px 8px;
+  font-size: 14px;
+}
   
+.search-button {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-left: none;
+  cursor: pointer;
+  color: #000000;
+}
+
+.menu {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.menu li {
+  margin-left: 16px;
+}
+
+.menu li a {
+  text-decoration: none;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+main {
+  padding: 100px;
+}
+
+section {
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.book {
+  display: grid;
+  width: 600px;
+  margin-right: 20px;
+  grid-template-rows: auto auto auto 25px;
+}
+
+.book img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+footer {
+  width: 100%;
+  bottom: 0;
+  background-color: #232b2b;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+}
+
+.book h2 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.book p {
+  font-size: 14px;
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.price {
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: center;
+} 
+
+#novelty-books .book {
+  background-color: #eeeeee;
+  padding: 15px;
+}
+
+#sales-hits .book {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+#editors-choice .book {
+  background-color: #eeeeee;
+  padding: 10px;
+}
+
+#coming-soon .book {
+  background-color: #f5f5f5;
+  padding: 10px;
+}
+
+#top-background {
+  top: 80px;
+  left: 0;
+  width: 100%;
+  height: 540px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  z-index: 0;
+}
+
+.background-switch-button {
+  position: absolute;
+  top: 280px;
+  font-size: 24px;
+  background: #ffffff;
+  border-radius: 32px;
+  border: 1px solid #ffffff;
+  color: #000000;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.background-switch-button:active{
+  background: #8f8f8f;
+}
+
+#left-button {
+  left: 20px;
+}
+
+#right-button {
+  right: 20px;
+}
+
+.background-carousel {
+  position: absolute;
+}
+
+.carousel-indicators {
+  position: absolute;
+  top: 570px;
+  left: 50%;
+  display: flex;
+} 
+
+.carousel-indicators .indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #630556;
+  margin: 0 6px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.carousel-indicators .indicator.active {
+  opacity: 1;
+}
+
+#top-background.fade-out {
+  opacity: 0.33;
+  transition: opacity 1s;
+}
+
+#top-background.appear {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
 .title-container {
-    position: absolute;
-    top: 315px;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 1; 
-  }
-  
-  .title {
-    font-size: 36px;
-    color: #ffffff;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-  }
+  position: absolute;
+  top: 315px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 1; 
+}
+
+.title {
+  font-size: 36px;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.item {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+
+.item h2 {
+  margin: 0;
+}
+
+.item p {
+  margin: 5px 0;
+}
+

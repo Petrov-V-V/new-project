@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Bookish - Your Online Bookstore</title>
@@ -17,12 +17,14 @@
         <li><a href="#">Рейтинги</a></li>
         <li><a href="#">Контакты</a></li>
       </ul>
-      <div class="search-container">
-        <input class="search-bar" type="text" placeholder="Search">
-        <button class="search-button">
+      <form>
+        <div class="search-container">
+        <input class="search-bar" type="text" name="search" placeholder="Search">
+        <button class="search-button" type="submit">
           <i class="fas fa-search search-icon"></i>
         </button>
       </div>
+      </form>
     </div>
   </div>
 
