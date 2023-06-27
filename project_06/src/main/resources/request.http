@@ -1,0 +1,73 @@
+###
+POST http://localhost:8080/clients
+Content-Type: application/json
+
+{
+  "name": "Misha",
+  "login": "misha",
+  "password": "3t45qfg",
+  "email": "f423q3@wf.w"
+}
+
+###
+GET http://localhost:8080/clients/1
+
+###
+DELETE http://localhost:8080/clients/123
+
+###
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "Морковь",
+  "price": 70
+}
+
+###
+PUT http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "Банан",
+  "price": 80
+}
+
+###
+DELETE http://localhost:8080/products/123
+
+###
+GET http://localhost:8080/products/1
+
+###
+GET http://localhost:8080/products
+Content-Type: application/json
+
+###
+POST http://localhost:8080/shopping-carts/1
+Content-Type: application/json
+
+{
+  "id": 2
+}
+
+###
+PUT http://localhost:8080/shopping-carts/1/product/1
+Content-Type: application/json
+
+{
+  "quantity": 2
+}
+
+###
+DELETE http://localhost:8080/shopping-carts/123/products/123
+
+###
+POST http://localhost:8080/payment
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "sum": 12
+}
