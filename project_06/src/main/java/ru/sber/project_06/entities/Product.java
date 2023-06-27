@@ -5,6 +5,9 @@ import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * Интерфейс для хранения данных о продукте
+ */
 @Data
 @AllArgsConstructor
 public class Product {

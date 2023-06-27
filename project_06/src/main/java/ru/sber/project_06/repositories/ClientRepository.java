@@ -12,13 +12,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+/**
+ * Класс репозиторий для хранения и обработки данных о клиенте
+ */
 @Repository
 public class ClientRepository implements ClientRepositoryInteface {
     private List<Client> clients = new ArrayList<>(List.of(
             new Client(1l, "Миша", "misha", "11111", "misha@w.e", new ShoppingCart(1L, "2jo4h9dfss", new ArrayList<>(List.of(new Product(1l, "Яблоко", BigDecimal.valueOf(50), 0)))))
     ));
 
-    //@Override
+    @Override
     public long registrate(Client client) {
         long id = generateId();
         client.setId(id);
@@ -34,12 +37,14 @@ public class ClientRepository implements ClientRepositoryInteface {
         return random.nextLong(high - low) + low;
     }
 
+    @Override
     public Optional<Client> findById(long id) {
         return clients.stream()
                 .filter(client -> client.getId() == id)
                 .findAny();
     }
 
+    @Override
     public boolean deleteById(long id) {
         return clients.removeIf(client -> client.getId() == id);
     }

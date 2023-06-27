@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+/**
+ * Класс для хранения и обработки данных о продукте
+ */
 @Repository
 public class ProductRepository implements ProductRepositoryInteface {
     private List<Product> products = new ArrayList<>(List.of(
@@ -17,7 +20,7 @@ public class ProductRepository implements ProductRepositoryInteface {
             new Product(3l, "Персик", BigDecimal.valueOf(30), 0)
     ));
 
-    //@Override
+    @Override
     public long save(Product product) {
         long id = generateId();
         product.setId(id);
@@ -26,14 +29,14 @@ public class ProductRepository implements ProductRepositoryInteface {
         return id;
     }
 
-    //@Override
+    @Override
     public Optional<Product> findById(long id) {
         return products.stream()
                 .filter(product -> product.getId() == id)
                 .findAny();
     }
 
-    //@Override
+    @Override
     public List<Product> findAll(String name) {
         if (name == null) {
             return products;
@@ -44,7 +47,7 @@ public class ProductRepository implements ProductRepositoryInteface {
                 .toList();
     }
 
-    //@Override
+    @Override
     public boolean update(Product product) {
         for (Product p : products) {
             if (p.getId() == product.getId()) {
@@ -58,7 +61,7 @@ public class ProductRepository implements ProductRepositoryInteface {
         return false;
     }
 
-    //@Override
+    @Override
     public boolean deleteById(long id) {
         return products.removeIf(product -> product.getId() == id);
     }

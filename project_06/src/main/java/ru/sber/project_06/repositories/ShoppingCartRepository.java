@@ -9,10 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Класс для хранения и обработки данных о тележке
+ */
 @Repository
 public class ShoppingCartRepository implements ShoppingCartRepositoryInteface {
     List<ShoppingCart> shoppingCarts = new ArrayList<>(List.of(new ShoppingCart(1L, "324ffds", new ArrayList<>(List.of(new Product(1l, "Яблоко", BigDecimal.valueOf(50), 0))))));
 
+    @Override
     public Optional<ShoppingCart> addProduct(long id, Product product) {
         Optional<ShoppingCart> shoppingCart = shoppingCarts.stream().filter(c -> c.getId()==id).findFirst();
         if(shoppingCart.isPresent()){
@@ -21,6 +25,7 @@ public class ShoppingCartRepository implements ShoppingCartRepositoryInteface {
         return shoppingCart;
     }
 
+    @Override
     public boolean deleteProduct(long id, long productId) {
         Optional<ShoppingCart> shoppingCart = shoppingCarts.stream().filter(c -> c.getId() == id).findFirst();
         if (shoppingCart.isPresent()) {
@@ -29,6 +34,7 @@ public class ShoppingCartRepository implements ShoppingCartRepositoryInteface {
         return false;
     }
 
+    @Override
     public Optional<ShoppingCart> updateQuantityOfProduct(long id, long productId, int quantity) {
         Optional<ShoppingCart> shoppingCart = shoppingCarts.stream().filter(c -> c.getId() == id).findFirst();
         if (shoppingCart.isPresent()) {

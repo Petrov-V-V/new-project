@@ -3,6 +3,9 @@ package ru.sber.project_06.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+/**
+ * Интерфейс для хранения данных о клиенте
+ */
 @Data
 @AllArgsConstructor
 public class Client {

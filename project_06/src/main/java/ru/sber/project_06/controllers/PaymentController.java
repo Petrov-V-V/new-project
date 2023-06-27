@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Класс отвечающий за обработку запросов об оплате
+ */
 @RestController
 @RequestMapping("/payment")
 public class PaymentController {

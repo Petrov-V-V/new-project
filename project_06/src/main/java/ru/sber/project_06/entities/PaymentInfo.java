@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+/**
+ * Интерфейс для хранения данных об оплате
+ */
 @Data
 @AllArgsConstructor
 public class PaymentInfo {

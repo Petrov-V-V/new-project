@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+/**
+ * Класс отвечающий за обработку запросов о клиенте
+ */
 @Slf4j
 @RestController
 @RequestMapping("clients")
