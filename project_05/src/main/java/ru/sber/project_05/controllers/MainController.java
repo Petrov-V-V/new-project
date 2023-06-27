@@ -37,6 +37,15 @@ public class MainController {
     if(search != null){
       return search(search, model);
     }
+    var books = bookRepository.findAll();
+    var noveltyBooks = books.subList(0, 4);
+    var hitBooks = books.subList(4, 8);
+    var editorsBooks = books.subList(8, 12);
+    var comingBooks = books.subList(12, 16);
+    model.addAttribute("noveltyBooks", noveltyBooks);
+    model.addAttribute("hitBooks", hitBooks);
+    model.addAttribute("editorsBooks", editorsBooks);
+    model.addAttribute("comingBooks", comingBooks);
     return "home";
   }
 }

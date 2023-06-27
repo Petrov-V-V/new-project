@@ -43,115 +43,56 @@
   </div>
 
   <main>
+    <div></div>
     <h1>Книжные новинки</h1>
     <section id="novelty-books">
-      <div class="book">
-        <img src="1_1.png" alt="Book 3">
-        <h2>KGBT+</h2>
-        <p>Виктор Пелевин Олегович</p>
-        <div class="price">949 р.</div>
-      </div>
-      <div class="book">
-        <img src="1_2.png" alt="Book 4">
-        <h2>Книга Ночи</h2>
-        <p>Блэк Х.</p>
-        <div class="price">807 р.</div>
-      </div>
-      <div class="book">
-        <img src="1_3.png" alt="Book 4">
-        <h2>Бэтмен и сын</h2>
-        <p>Моррисон Г., Джонс Дж., Рака Г., Уэйд М.</p>
-        <div class="price">1 669 р.</div>
-      </div>
-      <div class="book">
-        <img src="1_4.png" alt="Book 4">
-        <h2>Дэдпул. Величайший комикс в мире. Том 6. Последняя капля</h2>
-        <p>Джерри Дагган</p>
-        <div class="price">726 р.</div>
+      <div class="book"  th:each="nb:${noveltyBooks}">
+        <img th:src="${nb.img}">
+        <h2 th:text="${nb.name}"></h2>
+        <p th:text="${nb.author}"></p>
+        <div class="price">
+          <span th:text="${nb.price}"></span>
+          <span>р.</span>
+        </div>
       </div>
     </section>
     
     <h1>Хиты продаж</h1>
     <section id="sales-hits">
-      <div class="book">
-        <img src="2_1.png" alt="Book 3">
-        <h2>Земля королей. Трефовый том</h2>
-        <p>Федор Нечитайло</p>
-        <div class="price">1 457 р.</div>
-      </div>
-      <div class="book">
-        <img src="2_2.png" alt="Book 4">
-        <h2>Земля королей. Червовый том</h2>
-        <p>Федор Нечитайло</p>
-        <div class="price">1 580 р.</div>
-      </div>
-      <div class="book">
-        <img src="2_3.png" alt="Book 4">
-        <h2>1984</h2>
-        <p>Оруэлл Дж.</p>
-        <div class="price">243 р.</div>
-      </div>
-      <div class="book">
-        <img src="2_4.png" alt="Book 4">
-        <h2>Дочь для волка</h2>
-        <p>Уиттен Ханна</p>
-        <div class="price">631 р.</div>
+      <div class="book"  th:each="hb:${hitBooks}">
+        <img th:src="${hb.img}">
+        <h2 th:text="${hb.name}"></h2>
+        <p th:text="${hb.author}"></p>
+        <div class="price">
+          <span th:text="${hb.price}"></span>
+          <span>р.</span>
+        </div>
       </div>
     </section>
     
     <h1>Что почитать: выбор редакции</h1>
     <section id="editors-choice">
-      <div class="book">
-        <img src="3_1.png" alt="Book 3">
-        <h2>Атлант расправил плечи. В 3 книгах</h2>
-        <p>Рэнд А.</p>
-        <div class="price">1 190 р.</div>
-      </div>
-      <div class="book">
-        <img src="3_2.png" alt="Book 4">
-        <h2>Психбольница в руках пациентов. Алан Купер об интерфейсах</h2>
-        <p>Купер Алан</p>
-        <div class="price">1 508 р.</div>
-      </div>
-      <div class="book">
-        <img src="3_3.png" alt="Book 4">
-        <h2>Что скрывают числа</h2>
-        <p>Маурицио Кодоньо</p>
-        <div class="price">571 р.</div>
-      </div>
-      <div class="book">
-        <img src="3_4.png" alt="Book 4">
-        <h2>Думай медленно... решай быстро</h2>
-        <p>Канеман Даниэль</p>
-        <div class="price">985 р.</div>
+      <div class="book"  th:each="eb:${editorsBooks}">
+        <img th:src="${eb.img}">
+        <h2 th:text="${eb.name}"></h2>
+        <p th:text="${eb.author}"></p>
+        <div class="price">
+          <span th:text="${eb.price}"></span>
+          <span>р.</span>
+        </div>
       </div>
     </section>
     
     <h1>Скоро в продаже</h1>
     <section id="coming-soon">
-      <div class="book">
-        <img src="4_1.png" alt="Book 3">
-        <h2>Боги и чудовища</h2>
-        <p>Махёрин Шелби</p>
-        <div class="price">779 р.</div>
-      </div>
-      <div class="book">
-        <img src="4_2.png" alt="Book 4">
-        <h2>Бэтмен. Рептилия</h2>
-        <p>Эннис Гарт</p>
-        <div class="price">1 112 р.</div>
-      </div>
-      <div class="book">
-        <img src="4_3.png" alt="Book 4">
-        <h2>Искра (#3)</h2>
-        <p>Кеннеди Р.</p>
-        <div class="price">738 р.</div>
-      </div>
-      <div class="book">
-        <img src="4_4.png" alt="Book 4">
-        <h2>Египетские хроники. Кольцо огня (#2)</h2>
-        <p>Вульф М.</p>
-        <div class="price">807 р.</div>
+      <div class="book"  th:each="cb:${comingBooks}">
+        <img th:src="${cb.img}">
+        <h2 th:text="${cb.name}"></h2>
+        <p th:text="${cb.author}"></p>
+        <div class="price">
+          <span th:text="${cb.price}"></span>
+          <span>р.</span>
+        </div>
       </div>
     </section>
   </main>

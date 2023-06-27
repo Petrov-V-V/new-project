@@ -11,13 +11,15 @@ public class Book {
     private BigDecimal price;
     private String name;
     private String author;
+    private String img;
 
-    public Book(BigDecimal price, String name, String author) {
+    public Book(BigDecimal price, String name, String author, String img) {
         this.id = nextId;
         nextId++;
         this.price = price;
         this.name = name;
         this.author = author;
+        this.img = img;
     }
 
     public Integer getId() {
@@ -45,6 +47,14 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
     
 }

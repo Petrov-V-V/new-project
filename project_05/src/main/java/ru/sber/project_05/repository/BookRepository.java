@@ -9,27 +9,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Класс харнящий список текйщих книг и позваляющий его получать
+ * Класс харнящий список текйщих книг и позваляющий его получать 
  */
 @Repository
 public class BookRepository implements BookRepositoryInterface {
 
-  private List<Book> books = new ArrayList<>(List.of(new Book(BigDecimal.valueOf(949), "KGBT+", "\u0412\u0438\u043A\u0442\u043E\u0440 \u041F\u0435\u043B\u0435\u0432\u0438\u043D \u041E\u043B\u0435\u0433\u043E\u0432\u0438\u0447")
-  , new Book(BigDecimal.valueOf(807), "\u041A\u043D\u0438\u0433\u0430 \u041D\u043E\u0447\u0438", "\u0411\u043B\u044D\u043A \u0425.")
-  , new Book(BigDecimal.valueOf(1669), "\u0411\u044D\u0442\u043C\u0435\u043D \u0438 \u0441\u044B\u043D", "\u041C\u043E\u0440\u0440\u0438\u0441\u043E\u043D \u0413., \u0414\u0436\u043E\u043D\u0441 \u0414\u0436., \u0420\u0430\u043A\u0430 \u0413., \u0423\u044D\u0439\u0434 \u041C.")
-  , new Book(BigDecimal.valueOf(726), "\u0414\u044D\u0434\u043F\u0443\u043B. \u0412\u0435\u043B\u0438\u0447\u0430\u0439\u0448\u0438\u0439 \u043A\u043E\u043C\u0438\u043A\u0441 \u0432 \u043C\u0438\u0440\u0435. \u0422\u043E\u043C 6. \u041F\u043E\u0441\u043B\u0435\u0434\u043D\u044F\u044F \u043A\u0430\u043F\u043B\u044F", "\u0414\u0436\u0435\u0440\u0440\u0438 \u0414\u0430\u0433\u0433\u0430\u043D")
-  , new Book(BigDecimal.valueOf(1457), "\u0417\u0435\u043C\u043B\u044F \u043A\u043E\u0440\u043E\u043B\u0435\u0439. \u0422\u0440\u0435\u0444\u043E\u0432\u044B\u0439 \u0442\u043E\u043C", "\u0424\u0435\u0434\u043E\u0440 \u041D\u0435\u0447\u0438\u0442\u0430\u0439\u043B\u043E")
-  , new Book(BigDecimal.valueOf(1580), "\u0417\u0435\u043C\u043B\u044F \u043A\u043E\u0440\u043E\u043B\u0435\u0439. \u0427\u0435\u0440\u0432\u043E\u0432\u044B\u0439 \u0442\u043E\u043C", "\u0424\u0435\u0434\u043E\u0440 \u041D\u0435\u0447\u0438\u0442\u0430\u0439\u043B\u043E")
-  , new Book(BigDecimal.valueOf(243), "1984", "\u041E\u0440\u0443\u044D\u043B\u043B \u0414\u0436.")
-  , new Book(BigDecimal.valueOf(631), "\u0414\u043E\u0447\u044C \u0434\u043B\u044F \u0432\u043E\u043B\u043A\u0430", "\u0423\u0438\u0442\u0442\u0435\u043D \u0425\u0430\u043D\u043D\u0430")
-  , new Book(BigDecimal.valueOf(1190), "\u0410\u0442\u043B\u0430\u043D\u0442 \u0440\u0430\u0441\u043F\u0440\u0430\u0432\u0438\u043B \u043F\u043B\u0435\u0447\u0438. \u0412 3 \u043A\u043D\u0438\u0433\u0430\u0445", "\u0420\u044D\u043D\u0434 \u0410.")
-  , new Book(BigDecimal.valueOf(1508), "\u041F\u0441\u0438\u0445\u0431\u043E\u043B\u044C\u043D\u0438\u0446\u0430 \u0432 \u0440\u0443\u043A\u0430\u0445 \u043F\u0430\u0446\u0438\u0435\u043D\u0442\u043E\u0432. \u0410\u043B\u0430\u043D \u041A\u0443\u043F\u0435\u0440 \u043E\u0431 \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430\u0445", "\u041A\u0443\u043F\u0435\u0440 \u0410\u043B\u0430\u043D")
-  , new Book(BigDecimal.valueOf(571), "\u0427\u0442\u043E \u0441\u043A\u0440\u044B\u0432\u0430\u044E\u0442 \u0447\u0438\u0441\u043B\u0430", "\u041C\u0430\u0443\u0440\u0438\u0446\u0438\u043E \u041A\u043E\u0434\u043E\u043D\u044C\u043E")
-  , new Book(BigDecimal.valueOf(985), "\u0414\u0443\u043C\u0430\u0439 \u043C\u0435\u0434\u043B\u0435\u043D\u043D\u043E... \u0440\u0435\u0448\u0430\u0439 \u0431\u044B\u0441\u0442\u0440\u043E", "\u041A\u0430\u043D\u0435\u043C\u0430\u043D \u0414\u0430\u043D\u0438\u044D\u043B\u044C")
-  , new Book(BigDecimal.valueOf(779), "\u0411\u043E\u0433\u0438 \u0438 \u0447\u0443\u0434\u043E\u0432\u0438\u0449\u0430", "\u041C\u0430\u0445\u0451\u0440\u0438\u043D \u0428\u0435\u043B\u0431\u0438")
-  , new Book(BigDecimal.valueOf(1112), "\u0411\u044D\u0442\u043C\u0435\u043D. \u0420\u0435\u043F\u0442\u0438\u043B\u0438\u044F", "\u042D\u043D\u043D\u0438\u0441 \u0413\u0430\u0440")
-  , new Book(BigDecimal.valueOf(739), "\u0418\u0441\u043A\u0440\u0430 (#3)", "\u041A\u0435\u043D\u043D\u0435\u0434\u0438 \u0420.")
-  , new Book(BigDecimal.valueOf(807), "\u0415\u0433\u0438\u043F\u0435\u0442\u0441\u043A\u0438\u0435 \u0445\u0440\u043E\u043D\u0438\u043A\u0438. \u041A\u043E\u043B\u044C\u0446\u043E \u043E\u0433\u043D\u044F (#2)", "\u0412\u0443\u043B\u044C\u0444 \u041C.")));
+  private List<Book> books = new ArrayList<>(List.of(new Book(BigDecimal.valueOf(949), "KGBT+", "Виктор Пелевин Олегович", "/1_1.png")
+  , new Book(BigDecimal.valueOf(807), "Книга Ночи", "Блэк Х.", "/1_2.png")
+  , new Book(BigDecimal.valueOf(1669), "Бэтмен и сын", "Моррисон Г., Джонс Дж., Рака Г., Уэйд М.", "/1_3.png")
+  , new Book(BigDecimal.valueOf(726), "Дэдпул. Величайший комикс в мире. Том 6. Последняя капля", "Джерри Дагган", "/1_4.png")
+  , new Book(BigDecimal.valueOf(1457), "Земля королей. Трефовый том", "Федор Нечитайло", "/2_1.png")
+  , new Book(BigDecimal.valueOf(1580), "Земля королей. Червовый том", "Федор Нечитайло", "/2_2.png")
+  , new Book(BigDecimal.valueOf(243), "1984", "Оруэлл Дж.", "/2_3.png")
+  , new Book(BigDecimal.valueOf(631), "Дочь для волка", "Уиттен Ханна", "/2_4.png")
+  , new Book(BigDecimal.valueOf(1190), "Атлант расправил плечи. В 3 книгах", "Рэнд А.", "/3_1.png")
+  , new Book(BigDecimal.valueOf(1508), "Психбольница в руках пациентов. Алан Купер об интерфейсах", "Купер Алан", "/3_2.png")
+  , new Book(BigDecimal.valueOf(571), "Что скрывают числа", "Маурицио Кодоньо", "/3_3.png")
+  , new Book(BigDecimal.valueOf(985), "Думай медленно... решай быстро", "Канеман Даниэль", "/3_4.png")
+  , new Book(BigDecimal.valueOf(779), "Боги и чудовища", "Махрин Шелби", "/4_1.png")
+  , new Book(BigDecimal.valueOf(1112), "Бэтмен. Рептилия", "Эннис Гар", "/4_2.png")
+  , new Book(BigDecimal.valueOf(739), "Искра (#3)", "Кеннеди Р.", "/4_3.png")
+  , new Book(BigDecimal.valueOf(807), "Египетские хроники. Кольцо огня (#2)", "Вульф М.", "/4_4.png")));
 
   public List<Book> findAll() {
     return books;
