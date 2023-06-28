@@ -21,16 +21,7 @@ public class ShoppingCartRepository implements ShoppingCartRepositoryInteface {
     
     public static final String JDBC = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres";
 
-    List<ShoppingCart> shoppingCarts = new ArrayList<>(List.of(new ShoppingCart(1L, "324ffds", new ArrayList<>(List.of(new Product(1l, "Яблоко", BigDecimal.valueOf(50), 0))))));
-
-    // @Override
-    // public Optional<ShoppingCart> addProduct(long id, Product product) {
-    //     Optional<ShoppingCart> shoppingCart = shoppingCarts.stream().filter(c -> c.getId()==id).findFirst();
-    //     if(shoppingCart.isPresent()){
-    //         shoppingCart.get().getProducts().add(product);
-    //     }
-    //     return shoppingCart;
-    // }
+    List<ShoppingCart> shoppingCarts = new ArrayList<>(List.of());
 
     @Override
     public Optional<ShoppingCart> addProduct(long cartId, Product product) {
@@ -59,15 +50,6 @@ public class ShoppingCartRepository implements ShoppingCartRepositoryInteface {
         }
     }
 
-    // @Override
-    // public boolean deleteProduct(long id, long productId) {
-    //     Optional<ShoppingCart> shoppingCart = shoppingCarts.stream().filter(c -> c.getId() == id).findFirst();
-    //     if (shoppingCart.isPresent()) {
-    //         return shoppingCart.get().getProducts().removeIf(product -> product.getId() == productId);
-    //     }
-    //     return false;
-    // }
-
     @Override
     public boolean deleteProduct(long cartId, long productId) {
         var deleteSql = "DELETE from petrov.product_client where id_cart = ? and id_product = ?;";
@@ -84,16 +66,6 @@ public class ShoppingCartRepository implements ShoppingCartRepositoryInteface {
             throw new RuntimeException(e);
         }
     }
-
-    // @Override
-    // public Optional<ShoppingCart> updateQuantityOfProduct(long id, long productId, int quantity) {
-    //     Optional<ShoppingCart> shoppingCart = shoppingCarts.stream().filter(c -> c.getId() == id).findFirst();
-    //     if (shoppingCart.isPresent()) {
-    //         Optional<Product> product = shoppingCart.get().getProducts().stream().filter(p -> p.getId() == productId).findFirst();
-    //         product.ifPresent(value -> value.setQuantity(quantity));
-    //     }
-    //     return shoppingCart;
-    // }
 
     @Override
     public Optional<ShoppingCart> updateQuantityOfProduct(long cartId, long productId, int quantity) {

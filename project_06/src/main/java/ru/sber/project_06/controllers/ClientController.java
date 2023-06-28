@@ -44,15 +44,6 @@ public class ClientController {
         }
     }
 
-    private ClientDTO convertToClientDTO(Client client) {
-        ClientDTO clientDTO = new ClientDTO();
-        clientDTO.setName(client.getName());
-        clientDTO.setEmail(client.getEmail());
-        clientDTO.setLogin(client.getLogin());
-        clientDTO.setShoppingCart(client.getShoppingCart());
-        return clientDTO;
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteClient(@PathVariable long id) {
         log.info("Удаление клиента по id {}", id);

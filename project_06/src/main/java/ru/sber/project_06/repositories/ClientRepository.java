@@ -4,7 +4,6 @@ import ru.sber.project_06.entities.Client;
 import ru.sber.project_06.entities.ClientDTO;
 import ru.sber.project_06.entities.Product;
 import ru.sber.project_06.entities.ShoppingCart;
-import ru.sber.project_06.repositories.ShoppingCartRepository;
 
 import org.springframework.stereotype.Repository;
 
@@ -12,9 +11,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
-import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,32 +24,12 @@ public class ClientRepository implements ClientRepositoryInteface {
 
     public static final String JDBC = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres";
 
-    private List<Client> clients = new ArrayList<>(List.of(
-            new Client(1l, "Миша", "misha", "11111", "misha@w.e", new ShoppingCart(1L, "2jo4h9dfss", new ArrayList<>(List.of(new Product(1l, "Яблоко", BigDecimal.valueOf(50), 0)))))
-    ));
-
     ShoppingCartRepository shoppingCartRepository;
 
     public ClientRepository(ShoppingCartRepository shoppingCartRepository) {
         this.shoppingCartRepository = shoppingCartRepository;
     }
 
-    // @Override
-    // public long registrate(Client client) {
-    //     try (var connection = DriverManager.getConnection(JDBC)){System.out.println(")_)");} catch (SQLException e) {
-    //         throw new RuntimeException(e);
-    //     };
-    //     long id = generateId();
-    //     client.setId(id);
-    //     client.setShoppingCart(shoppingCartRepository.generate(id));
-
-    //     clients.add(client);
-    //     return id;
-    // }
-
-    //
-    //NEW CODE-NEW CODE-NEW CODE-NEW CODE-NEW CODE-NEW CODE-NEW CODE-NEW CODE-NEW CODE-NEW CODE-
-    //
     @Override
     public long registrate(Client client) {
         var insertCartSql = "INSERT INTO petrov.cart (promocode) VALUES (?);"; 
@@ -95,19 +72,6 @@ public class ClientRepository implements ClientRepositoryInteface {
         }
     }
 
-    // private long generateId() {
-    //     Random random = new Random();
-    //     int low = 1;
-    //     int high = 1_000_000;
-    //     return random.nextLong(high - low) + low;
-    // }
-
-    // public Optional<Client> findByIdClient(long id) {
-    //     return clients.stream()
-    //             .filter(client -> client.getId() == id)
-    //             .findAny();
-    // }
-
     @Override
     public Optional<ClientDTO> findById(long id) {
         var selectSql = "SELECT * FROM petrov.client where id = ?";
@@ -147,12 +111,7 @@ public class ClientRepository implements ClientRepositoryInteface {
             throw new RuntimeException(e);
         }
     }
-
-    // @Override
-    // public boolean deleteById(long id) {
-    //     return clients.removeIf(client -> client.getId() == id);
-    // }
-
+    
     @Override
     public boolean deleteById(long id) {
         var selectClientSql = "SELECT cart_id FROM petrov.client where id = ?";

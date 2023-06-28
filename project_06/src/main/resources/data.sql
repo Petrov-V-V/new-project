@@ -206,28 +206,28 @@ COPY petrov.product_client (id, id_product, id_cart, count) FROM stdin;
 -- Name: cart_id_seq; Type: SEQUENCE SET; Schema: petrov; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petrov.cart_id_seq', 7, true);
+SELECT pg_catalog.setval('petrov.cart_id_seq', 8, true);
 
 
 --
 -- Name: client_id_seq; Type: SEQUENCE SET; Schema: petrov; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petrov.client_id_seq', 7, true);
+SELECT pg_catalog.setval('petrov.client_id_seq', 8, true);
 
 
 --
 -- Name: product_client_id_seq; Type: SEQUENCE SET; Schema: petrov; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petrov.product_client_id_seq', 8, true);
+SELECT pg_catalog.setval('petrov.product_client_id_seq', 9, true);
 
 
 --
 -- Name: product_id_seq; Type: SEQUENCE SET; Schema: petrov; Owner: postgres
 --
 
-SELECT pg_catalog.setval('petrov.product_id_seq', 9, true);
+SELECT pg_catalog.setval('petrov.product_id_seq', 10, true);
 
 
 --
