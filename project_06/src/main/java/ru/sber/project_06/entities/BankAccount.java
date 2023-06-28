@@ -6,11 +6,11 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 /**
- * Интерфейс для хранения данных об оплате
+ * Класс хранящий информацию о счёте в банке
  */
 @Data
 @AllArgsConstructor
-public class PaymentInfo {
+public class BankAccount {
     private String cardNumber;
-    long userId;
+    private BigDecimal sum;
 }

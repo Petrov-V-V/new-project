@@ -68,6 +68,7 @@ POST http://localhost:8080/payment
 Content-Type: application/json
 
 {
-  "userId": 1,
-  "sum": 12
+  "cardNumber": "2135434165",
+  "userId": 1
+
 }
