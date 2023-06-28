@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Интерфейс для хранения данных о тележке
+ * Класс для хранения данных о тележке
  */
 @Data
 @AllArgsConstructor

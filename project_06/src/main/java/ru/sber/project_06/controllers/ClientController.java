@@ -34,10 +34,10 @@ public class ClientController {
     @GetMapping("/{id}")
     public ResponseEntity<ClientDTO> getClient(@PathVariable long id) {
         log.info("Получение информации о клиенте по id {}", id);
-        Optional<Client> client = clientRepository.findById(id);
+        Optional<ClientDTO> client = clientRepository.findById(id);
 
         if (client.isPresent()) {
-            ClientDTO clientDTO = convertToClientDTO(client.get());
+            ClientDTO clientDTO = client.get();
             return ResponseEntity.ok().body(clientDTO);
         } else {
             return ResponseEntity.notFound().build();

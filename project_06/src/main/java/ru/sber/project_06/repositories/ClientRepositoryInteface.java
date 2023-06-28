@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
+import ru.sber.project_06.entities.ClientDTO;
 import ru.sber.project_06.entities.Client;
 
 /**
@@ -12,6 +13,6 @@ import ru.sber.project_06.entities.Client;
 @Repository
 public interface ClientRepositoryInteface {
     public long registrate(Client client);
-    public Optional<Client> findById(long id);
+    public Optional<ClientDTO> findById(long id);
     public boolean deleteById(long id);
 }

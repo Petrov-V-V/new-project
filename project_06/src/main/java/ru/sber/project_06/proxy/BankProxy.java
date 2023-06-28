@@ -16,10 +16,7 @@ public class BankProxy implements BankProxyInterface {
 
     @Override
     public boolean checkMeansCustomer(String numberOfCard, BigDecimal sum) {
-        Optional<BankAccount> account = accountList
-                .stream()
-                .filter(bankAccount -> bankAccount.getCardNumber().equals(numberOfCard))
-                .findAny();
+        Optional<BankAccount> account = accountList.stream().filter(bankAccount -> bankAccount.getCardNumber().equals(numberOfCard)).findFirst();
         if (account.get().getSum().compareTo(sum) == 1) {
             return true;
         }
