@@ -43,5 +43,11 @@ public class ShoppingCartRepository implements ShoppingCartRepositoryInteface {
         }
         return shoppingCart;
     }
+
+    public ShoppingCart generate(long id){
+        ShoppingCart shoppingCart = new ShoppingCart(id, "g45wrewg", new ArrayList<>());
+        shoppingCarts.add(shoppingCart);
+        return shoppingCart;
+    }
     
 }

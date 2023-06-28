@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Product {
-    private Long id;
+    private long id;
     private String name;
     private BigDecimal price;
     private int quantity;

@@ -3,6 +3,7 @@ package ru.sber.project_06.repositories;
 import ru.sber.project_06.entities.Client;
 import ru.sber.project_06.entities.Product;
 import ru.sber.project_06.entities.ShoppingCart;
+import ru.sber.project_06.repositories.ShoppingCartRepository;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,10 +22,17 @@ public class ClientRepository implements ClientRepositoryInteface {
             new Client(1l, "Миша", "misha", "11111", "misha@w.e", new ShoppingCart(1L, "2jo4h9dfss", new ArrayList<>(List.of(new Product(1l, "Яблоко", BigDecimal.valueOf(50), 0)))))
     ));
 
+    ShoppingCartRepository shoppingCartRepository;
+
+    public ClientRepository(ShoppingCartRepository shoppingCartRepository) {
+        this.shoppingCartRepository = shoppingCartRepository;
+    }
+
     @Override
     public long registrate(Client client) {
         long id = generateId();
         client.setId(id);
+        client.setShoppingCart(shoppingCartRepository.generate(id));
 
         clients.add(client);
         return id;
