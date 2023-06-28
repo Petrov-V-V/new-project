@@ -53,7 +53,6 @@ public class ProductController {
     public Product updateProduct(@RequestBody Product product) {
         log.info("Обновление продукта");
         productRepository.update(product);
-
         return product;
     }
 

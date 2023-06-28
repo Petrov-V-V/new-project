@@ -13,7 +13,7 @@ import java.util.Random;
  * Класс для хранения и обработки данных о продукте
  */
 @Repository
-public class ProductRepository implements ProductRepositoryInteface {
+public class ProductRepository implements ProductRepositoryInteface{
     private List<Product> products = new ArrayList<>(List.of(
             new Product(1l, "Яблоко", BigDecimal.valueOf(50), 0),
             new Product(2l, "Арбуз", BigDecimal.valueOf(150), 0),

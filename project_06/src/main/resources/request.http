@@ -10,10 +10,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/clients/1
+GET http://localhost:8080/clients/773910
 
 ###
-DELETE http://localhost:8080/clients/123
+DELETE http://localhost:8080/clients/773910
 
 ###
 POST http://localhost:8080/products
@@ -29,16 +29,16 @@ PUT http://localhost:8080/products
 Content-Type: application/json
 
 {
-  "id": 1,
-  "name": "Банан",
-  "price": 80
+  "id": 950979,
+  "name": "Яблоко",
+  "price": 70
 }
 
 ###
-DELETE http://localhost:8080/products/123
+DELETE http://localhost:8080/products/217298
 
 ###
-GET http://localhost:8080/products/1
+GET http://localhost:8080/products/950979
 
 ###
 GET http://localhost:8080/products
@@ -53,11 +53,11 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8080/shopping-carts/1/product/1
+PUT http://localhost:8080/shopping-carts/1/product/25
 Content-Type: application/json
 
 {
-  "quantity": 2
+  "quantity": 4
 }
 
 ###
