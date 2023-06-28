@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/clients/773910
+GET http://localhost:8080/clients/913609
 
 ###
 DELETE http://localhost:8080/clients/773910
@@ -29,7 +29,7 @@ PUT http://localhost:8080/products
 Content-Type: application/json
 
 {
-  "id": 950979,
+  "id": 441761,
   "name": "Яблоко",
   "price": 70
 }
@@ -38,7 +38,7 @@ Content-Type: application/json
 DELETE http://localhost:8080/products/217298
 
 ###
-GET http://localhost:8080/products/950979
+GET http://localhost:8080/products/441761
 
 ###
 GET http://localhost:8080/products
