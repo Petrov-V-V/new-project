@@ -52,7 +52,11 @@ public class PaymentService implements PaymentServiceInteface {
                     List<CartProducts> cartProducts = getCartProducts(paymentInfo.getUserId());
                     
                     for (CartProducts cartProduct : cartProducts) {
+                        if (cartProduct.getQuantity() <= cartProduct.getCount()){
                         updateProductCount(cartProduct.getId(), cartProduct.getQuantity());
+                    } else {
+                        throw new RuntimeException("Payment can't be done");
+                    }
                     }
                     
                     return true;
