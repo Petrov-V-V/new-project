@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/clients/5
+GET http://localhost:8080/clients/6
 
 ###
 DELETE http://localhost:8080/clients/5
@@ -21,8 +21,8 @@ Content-Type: application/json
 
 {
   "name": "Морковь",
-  "price": 788769,
-  "quantity": 7
+  "price": 78,
+  "quantity": 78
 }
 
 ###
@@ -30,10 +30,10 @@ PUT http://localhost:8080/products
 Content-Type: application/json
 
 {
-  "id": 12,
+  "id": 15,
   "name": "Морковь",
   "price": 136.0,
-  "quantity": 6
+  "quantity": 1
 }
 
 ###
@@ -47,11 +47,11 @@ GET http://localhost:8080/products
 Content-Type: application/json
 
 ###
-POST http://localhost:8080/shopping-carts/5
+POST http://localhost:8080/shopping-carts/6
 Content-Type: application/json
 
 {
-  "id": 13
+  "id": 16
 }
 
 ###
@@ -71,6 +71,6 @@ Content-Type: application/json
 
 {
   "cardNumber": "2135434165",
-  "userId": 2
+  "userId": 6
 
 }
