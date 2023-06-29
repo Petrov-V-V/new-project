@@ -26,7 +26,7 @@ public class PaymentController {
 
     @PostMapping
     public ResponseEntity<?> pay(@RequestBody PaymentInfo paymentInfo) {
-        log.info("Произошёл платёж");
+        log.info("Была начата операция платежа");
         boolean isPaymentSuccessful = paymentService.pay(paymentInfo);
         return isPaymentSuccessful ? ResponseEntity.accepted().build() : ResponseEntity.badRequest().build();
     }

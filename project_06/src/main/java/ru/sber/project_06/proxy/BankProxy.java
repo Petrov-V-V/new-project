@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 @Component
 public class BankProxy implements BankProxyInterface {
-    List<BankAccount> accountList = List.of(new BankAccount("2135434165", BigDecimal.valueOf(33333)));
+    List<BankAccount> accountList = List.of(new BankAccount("2135434165", BigDecimal.valueOf(3333)));
 
     @Override
     public boolean checkMeansCustomer(String numberOfCard, BigDecimal sum) {
