@@ -23,7 +23,8 @@ create table petrov.client
     password varchar(255) not null,
     cart_id  integer      not null
         constraint client_cart_id_fk
-            references petrov.cart
+            references petrov.cart,
+    email varchar(255) not null
 );
 
 create table petrov.product_client
