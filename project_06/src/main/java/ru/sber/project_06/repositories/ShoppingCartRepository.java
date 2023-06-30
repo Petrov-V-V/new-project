@@ -1,6 +1,8 @@
 package ru.sber.project_06.repositories;
 
 import ru.sber.project_06.entities.ShoppingCart;
+import ru.sber.project_06.entities.CartProducts;
+import ru.sber.project_06.entities.PaymentInfo;
 import ru.sber.project_06.entities.Product;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,6 +119,48 @@ public class ShoppingCartRepository implements ShoppingCartRepositoryInteface {
         }
 
         return Optional.empty();
+    }
+
+    @Override
+    public double calcTotalSum(PaymentInfo paymentInfo) {
+        String selectSum = "SELECT SUM(p.price * pc.count) AS total FROM products_petrov_v.clients c JOIN products_petrov_v.products_carts pc ON pc.id_cart = c.cart_id JOIN products_petrov_v.products p ON p.id = pc.id_product WHERE c.id = ?";
+
+        PreparedStatementCreator selectStatementCreator = connection -> {
+            var prepareStatement = connection.prepareStatement(selectSum);
+            prepareStatement.setLong(1, paymentInfo.getUserId());
+            return prepareStatement;
+        };
+
+        RowMapper<Double> sumRowMapper = (resultSet, rowNum) -> resultSet.getDouble("total");
+
+        List<Double> totals = jdbcTemplate.query(selectStatementCreator, sumRowMapper);
+
+        if (!totals.isEmpty()) {
+            double totalCartPrice = totals.get(0);
+            return totalCartPrice;
+        }
+
+        throw new RuntimeException("Payment can't be done due to empty cart");
+    }
+
+    @Override
+    public List<CartProducts> getCartProducts(long userId) {
+        String selectCartProducts = "SELECT p.id, p.count, pc.count AS quantity FROM products_petrov_v.products p JOIN products_petrov_v.products_carts pc ON pc.id_product = p.id JOIN products_petrov_v.clients c ON c.cart_id = pc.id_cart WHERE c.id = ?";
+
+        PreparedStatementCreator selectStatementCreator = connection -> {
+            var prepareStatement = connection.prepareStatement(selectCartProducts);
+            prepareStatement.setLong(1, userId);
+            return prepareStatement;
+        };
+
+        RowMapper<CartProducts> productRowMapper = (resultSet, rowNum) -> {
+            long id = resultSet.getLong("id");
+            int count = resultSet.getInt("count");
+            int quantity = resultSet.getInt("quantity");
+            return new CartProducts(id, count, quantity);
+        };
+
+        return jdbcTemplate.query(selectStatementCreator, productRowMapper);
     }
     
 }

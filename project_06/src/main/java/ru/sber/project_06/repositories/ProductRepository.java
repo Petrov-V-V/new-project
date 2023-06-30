@@ -135,4 +135,18 @@ public class ProductRepository implements ProductRepositoryInteface{
 
         return rows > 0;
     }
+    
+    @Override
+    public void updateProductCount(long productId, int quantity) {
+        String updateProductCount = "UPDATE products_petrov_v.products SET count = count - ? WHERE id = ?";
+
+        PreparedStatementCreator updateStatementCreator = connection -> {
+            var prepareStatement = connection.prepareStatement(updateProductCount);
+            prepareStatement.setInt(1, quantity);
+            prepareStatement.setLong(2, productId);
+            return prepareStatement;
+        };
+
+        jdbcTemplate.update(updateStatementCreator);
+    }
 }

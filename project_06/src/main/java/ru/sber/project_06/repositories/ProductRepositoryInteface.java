@@ -13,8 +13,14 @@ import ru.sber.project_06.entities.Product;
 @Repository
 public interface ProductRepositoryInteface {
     public long save(Product product);
+    
     public Optional<Product> findById(long id);
+
     public List<Product> findAll(String name);
+
     public boolean update(Product product);
+
     public boolean deleteById(long id);
+
+    void updateProductCount(long productId, int quantity);
 }

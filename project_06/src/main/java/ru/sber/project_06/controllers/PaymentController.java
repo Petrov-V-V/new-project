@@ -1,7 +1,7 @@
 package ru.sber.project_06.controllers;
 
 import ru.sber.project_06.entities.PaymentInfo;
-import ru.sber.project_06.repositories.PaymentRepository;
+import ru.sber.project_06.services.PaymentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,16 +18,16 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/payment")
 public class PaymentController {
 
-    private final PaymentRepository paymentRepository;
+    private final PaymentService paymentService;
 
-    public PaymentController(PaymentRepository paymentRepository) {
-        this.paymentRepository = paymentRepository;
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
     }
 
     @PostMapping
     public ResponseEntity<?> pay(@RequestBody PaymentInfo paymentInfo) {
         log.info("Была начата операция платежа");
-        boolean isPaymentSuccessful = paymentRepository.pay(paymentInfo);
+        boolean isPaymentSuccessful = paymentService.pay(paymentInfo);
         return isPaymentSuccessful ? ResponseEntity.accepted().build() : ResponseEntity.badRequest().build();
     }
 }

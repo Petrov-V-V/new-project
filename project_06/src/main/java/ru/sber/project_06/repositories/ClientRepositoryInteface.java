@@ -13,6 +13,8 @@ import ru.sber.project_06.entities.Client;
 @Repository
 public interface ClientRepositoryInteface {
     public long registrate(Client client);
+    
     public Optional<ClientDTO> findById(long id);
+
     public boolean deleteById(long id);
 }
