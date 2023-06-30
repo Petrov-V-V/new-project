@@ -1,33 +1,41 @@
-package ru.sber.project_06.services;
+package ru.sber.project_06.repositories;
 
-import java.math.BigDecimal;
-import java.util.List;
+import ru.sber.project_06.entities.ShoppingCart;
+import ru.sber.project_06.entities.CartProducts;
+import ru.sber.project_06.entities.PaymentInfo;
+import ru.sber.project_06.entities.Product;
+import ru.sber.project_06.proxy.BankProxy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ru.sber.project_06.entities.PaymentInfo;
-import ru.sber.project_06.entities.CartProducts;
-import ru.sber.project_06.proxy.BankProxy;
+import java.math.BigDecimal;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 
 /**
- * Класс для совершения процесса оплаты
+ * Класс извлекающий данные о тележке из бд для дальнейшей их обработки
  */
-@Service
-public class PaymentService implements PaymentServiceInteface {
+@Repository
+public class PaymentRepository implements PaymentRepositoryInteface {
 
     private final JdbcTemplate jdbcTemplate;
 
-    private BankProxy bankProxy;
+    BankProxy bankProxy;
 
     @Autowired
-    public PaymentService(BankProxy bankProxy, JdbcTemplate jdbcTemplate) {
-        this.bankProxy = bankProxy;
+    public PaymentRepository(JdbcTemplate jdbcTemplate, BankProxy bankProxy) {
         this.jdbcTemplate = jdbcTemplate;
+        this. bankProxy = bankProxy;
     }
 
     @Override
@@ -98,5 +106,5 @@ public class PaymentService implements PaymentServiceInteface {
 
         jdbcTemplate.update(updateStatementCreator);
     }
-
+    
 }

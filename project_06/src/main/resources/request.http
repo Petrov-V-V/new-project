@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/clients/7
+GET http://localhost:8080/clients/6
 
 ###
 DELETE http://localhost:8080/clients/5
@@ -51,11 +51,11 @@ POST http://localhost:8080/shopping-carts/6
 Content-Type: application/json
 
 {
-  "id": 16
+  "id": 11
 }
 
 ###
-PUT http://localhost:8080/shopping-carts/2/product/11
+PUT http://localhost:8080/shopping-carts/6/product/11
 Content-Type: application/json
 
 {
@@ -63,7 +63,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/shopping-carts/2/products/11
+DELETE http://localhost:8080/shopping-carts/6/products/11
 
 ###
 POST http://localhost:8080/payment
