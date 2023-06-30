@@ -29,7 +29,7 @@ public class ClientController {
     public ResponseEntity<?> registrateClient(@RequestBody Client client) {
         log.info("Регистрация клиента {}", client);
 
-        return ResponseEntity.created(URI.create("/cart/"+clientRepository.registrate(client))).build();
+        return ResponseEntity.created(URI.create("/client/"+clientRepository.registrate(client))).build();
     }
 
     @GetMapping("/{id}")
