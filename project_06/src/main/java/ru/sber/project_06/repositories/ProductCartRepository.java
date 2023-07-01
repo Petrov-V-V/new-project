@@ -152,14 +152,31 @@
 // }
 package ru.sber.project_06.repositories;
 
+import ru.sber.project_06.entities.Cart;
+import ru.sber.project_06.entities.CartProducts;
+import ru.sber.project_06.entities.Client;
 import ru.sber.project_06.entities.Product;
+import ru.sber.project_06.entities.ProductCart;
 
 import org.springframework.stereotype.Repository;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductCartRepository extends JpaRepository<ProductCart, Long> {
+    @Transactional
+    int deleteByCartAndProduct(Cart cart, Product product);
+    
+    Optional<ProductCart> findByCartIdAndProductId(Long cartId, Long productId);
+
+    List<ProductCart> findByCart(Cart cart);
+
+    void deleteByCart(Cart cart);
 }

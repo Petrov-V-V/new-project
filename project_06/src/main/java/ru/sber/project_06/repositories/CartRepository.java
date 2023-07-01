@@ -1,7 +1,7 @@
 // package ru.sber.project_06.repositories;
 
 // import ru.sber.project_06.entities.Client;
-// import ru.sber.project_06.entities.ClientDTO;
+// import ru.sber.project_06.entities.ProductCart;
 // import ru.sber.project_06.entities.Product;
 // import ru.sber.project_06.entities.ShoppingCart;
 
@@ -73,62 +73,62 @@
 //         return (long) (int) clientKeyHolder.getKeys().get("id");
 //     }
 
-    //@Override
-    // public Optional<ClientDTO> findById(long id) {
-    //     var selectSql = "SELECT * FROM products_petrov_v.clients WHERE id = ?";
-    //     var selectCartSql = "SELECT * FROM products_petrov_v.products_carts PC JOIN products_petrov_v.products P ON PC.id_product = P.id WHERE PC.id_cart = ?";
+//     @Override
+//     public Optional<ProductCart> findById(long id) {
+//         var selectSql = "SELECT * FROM products_petrov_v.clients WHERE id = ?";
+//         var selectCartSql = "SELECT * FROM products_petrov_v.products_carts PC JOIN products_petrov_v.products P ON PC.id_product = P.id WHERE PC.id_cart = ?";
 
-    //     PreparedStatementCreator preparedStatementCreator = connection -> {
-    //         PreparedStatement preparedStatement = connection.prepareStatement(selectSql);
-    //         preparedStatement.setLong(1, id);
+//         PreparedStatementCreator preparedStatementCreator = connection -> {
+//             PreparedStatement preparedStatement = connection.prepareStatement(selectSql);
+//             preparedStatement.setLong(1, id);
 
-    //         return preparedStatement;
-    //     };
+//             return preparedStatement;
+//         };
 
-    //     RowMapper<ClientDTO> clientRowMapper = getClientRowMapper(selectCartSql);
+//         RowMapper<ProductCart> clientRowMapper = getClientRowMapper(selectCartSql);
 
-    //     List<ClientDTO> clients = jdbcTemplate.query(preparedStatementCreator, clientRowMapper);
+//         List<ProductCart> clients = jdbcTemplate.query(preparedStatementCreator, clientRowMapper);
 
-    //     return clients.stream().findFirst();
-    // }
+//         return clients.stream().findFirst();
+//     }
 
-    // private RowMapper<ClientDTO> getClientRowMapper(String selectCartSql) {
-    //     return (resultSet, rowNum) -> {
-    //         String name = resultSet.getString("name");
-    //         String login = resultSet.getString("username");
-    //         String email = resultSet.getString("email");
-    //         int cartId = resultSet.getInt("cart_id");
+//     private RowMapper<ProductCart> getClientRowMapper(String selectCartSql) {
+//         return (resultSet, rowNum) -> {
+//             String name = resultSet.getString("name");
+//             String login = resultSet.getString("username");
+//             String email = resultSet.getString("email");
+//             int cartId = resultSet.getInt("cart_id");
 
-    //         ShoppingCart cart = fetchShoppingCart(cartId, selectCartSql);
+//             ShoppingCart cart = fetchShoppingCart(cartId, selectCartSql);
 
-    //         return new ClientDTO(name, login, email, cart);
-    //     };
-    // }
+//             return new ProductCart(name, login, email, cart);
+//         };
+//     }
 
-    // private ShoppingCart fetchShoppingCart(int cartId, String selectCartSql) {
-    //     PreparedStatementCreator preparedStatementCreator = connection -> {
-    //         PreparedStatement preparedStatement = connection.prepareStatement(selectCartSql);
-    //         preparedStatement.setLong(1, cartId);
+//     private ShoppingCart fetchShoppingCart(int cartId, String selectCartSql) {
+//         PreparedStatementCreator preparedStatementCreator = connection -> {
+//             PreparedStatement preparedStatement = connection.prepareStatement(selectCartSql);
+//             preparedStatement.setLong(1, cartId);
 
-    //         return preparedStatement;
-    //     };
+//             return preparedStatement;
+//         };
 
-    //     RowMapper<Product> productRowMapper = getProductRowMapper();
+//         RowMapper<Product> productRowMapper = getProductRowMapper();
 
-    //     List<Product> products = jdbcTemplate.query(preparedStatementCreator, productRowMapper);
+//         List<Product> products = jdbcTemplate.query(preparedStatementCreator, productRowMapper);
 
-    //     return new ShoppingCart((long) cartId, "", products);
-    // }
+//         return new ShoppingCart((long) cartId, "", products);
+//     }
 
-    // private RowMapper<Product> getProductRowMapper() {
-    //     return (resultSet, rowNum) -> {
-    //         int id = resultSet.getInt("id_product");
-    //         String name = resultSet.getString("name");
-    //         BigDecimal price = BigDecimal.valueOf(resultSet.getDouble("price"));
-    //         int quantity = resultSet.getInt("count");
-    //         return new Product(id, name, price, quantity);
-    //     };
-    // }
+//     private RowMapper<Product> getProductRowMapper() {
+//         return (resultSet, rowNum) -> {
+//             int id = resultSet.getInt("id_product");
+//             String name = resultSet.getString("name");
+//             BigDecimal price = BigDecimal.valueOf(resultSet.getDouble("price"));
+//             int quantity = resultSet.getInt("count");
+//             return new Product(id, name, price, quantity);
+//         };
+//     }
 
 //     @Override
 //     public boolean deleteById(long id) {
@@ -183,14 +183,25 @@
 package ru.sber.project_06.repositories;
 
 import ru.sber.project_06.entities.Cart;
-import ru.sber.project_06.entities.Client;
+import ru.sber.project_06.entities.ProductCart;
 
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import jakarta.transaction.Transactional;
+
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface CartRepository extends JpaRepository<Cart, Long> {
+    @Query("SELECT pc FROM ProductCart pc WHERE pc.cart.id = :cartId")
+    List<ProductCart> findProductCartsByCartId(Long cartId);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM ProductCart pc WHERE pc.cart.id = :cartId")
+    void deleteProductCartsByCartId(Long cartId);
 }

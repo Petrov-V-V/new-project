@@ -2,7 +2,10 @@ package ru.sber.project_06.controllers;
 
 import ru.sber.project_06.entities.Client;
 import ru.sber.project_06.entities.ClientDTO;
+import ru.sber.project_06.entities.ProductCart;
 import ru.sber.project_06.repositories.ClientRepository;
+import ru.sber.project_06.services.ClientService;
+import ru.sber.project_06.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.ResponseEntity;
@@ -19,23 +22,23 @@ import java.util.Optional;
 @RequestMapping("clients")
 public class ClientController {
 
-    private ClientRepository clientRepository;
+    private ClientService clientService;
 
-    public ClientController(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
     }
 
     @PostMapping
     public ResponseEntity<?> registrateClient(@RequestBody Client client) {
         log.info("Регистрация клиента {}", client);
 
-        return ResponseEntity.created(URI.create("/client/"+clientRepository.registrate(client))).build();
+        return ResponseEntity.created(URI.create("/client/"+clientService.registrate(client))).build();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ClientDTO> getClient(@PathVariable long id) {
         log.info("Получение информации о клиенте по id {}", id);
-        Optional<ClientDTO> client = clientRepository.findById(id);
+        Optional<ClientDTO> client = clientService.findById(id);
 
         if (client.isPresent()) {
             ClientDTO clientDTO = client.get();
@@ -48,7 +51,7 @@ public class ClientController {
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteClient(@PathVariable long id) {
         log.info("Удаление клиента по id {}", id);
-        boolean isDeleted = clientRepository.deleteById(id);
+        boolean isDeleted = clientService.deleteById(id);
 
         if (isDeleted) {
             return ResponseEntity.noContent().build();
