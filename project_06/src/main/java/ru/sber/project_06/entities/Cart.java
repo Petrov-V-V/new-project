@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
+
+/**
+ * Класс для хранения данных о тележках
+ */
 @Entity
 @Data
 @AllArgsConstructor

@@ -1,0 +1,18 @@
+###
+POST http://localhost:8080/shopping-carts/7
+Content-Type: application/json
+
+{
+  "id": 3
+}
+
+###
+PUT http://localhost:8080/shopping-carts/7/product/7
+Content-Type: application/json
+
+{
+  "count": 4
+}
+
+###
+DELETE http://localhost:8080/shopping-carts/7/products/3

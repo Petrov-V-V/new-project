@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 /**
- * Интерфейс для хранения части данных о клиенте
+ * Класс для хранения данных о содержимом тележки
  */
 @Entity
 @Data

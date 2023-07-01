@@ -1,0 +1,16 @@
+###
+POST http://localhost:8080/clients
+Content-Type: application/json
+
+{
+  "name": "Misha",
+  "username": "misha",
+  "password": "3t45qfg",
+  "email": "f423q3@wf.w"
+}
+
+###
+GET http://localhost:8080/clients/7
+
+###
+DELETE http://localhost:8080/clients/8

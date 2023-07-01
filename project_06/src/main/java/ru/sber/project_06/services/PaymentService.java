@@ -10,16 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.sber.project_06.entities.PaymentInfo;
 import ru.sber.project_06.entities.CartProducts;
 import ru.sber.project_06.proxy.BankProxy;
-import ru.sber.project_06.repositories.ProductRepository;
-
-import ru.sber.project_06.entities.Product;
 import ru.sber.project_06.entities.Cart;
-import ru.sber.project_06.entities.Client;
-import ru.sber.project_06.entities.ProductCart;
 import ru.sber.project_06.repositories.CartRepository;
-import ru.sber.project_06.repositories.ClientRepository;
 import ru.sber.project_06.repositories.ProductCartRepository;
-import ru.sber.project_06.repositories.ProductRepository;
 
 /**
  * Класс для совершения процесса оплаты
@@ -33,6 +26,7 @@ public class PaymentService implements PaymentServiceInteface {
     private ProductService productService;
     private CartRepository cartRepository;
 
+    @Autowired
     public PaymentService(CartRepository cartRepository, BankProxy bankProxy, CartService cartService, ProductService productService, ProductCartRepository productCartRepository) {
         this.bankProxy = bankProxy;
         this.cartService = cartService;
@@ -51,7 +45,6 @@ public class PaymentService implements PaymentServiceInteface {
                 
                 for (CartProducts cartProduct : cartProducts) {
                 if (cartProduct.getQuantity() <= cartProduct.getCount()){
-                    System.out.println(cartProduct);
                     productService.updateProductCount(cartProduct.getId(), cartProduct.getQuantity());
                 } else {
                     throw new RuntimeException("Payment can't be done due to lack of products");

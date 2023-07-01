@@ -1,0 +1,30 @@
+###
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "Морковь",
+  "price": 78,
+  "count": 78
+}
+
+###
+PUT http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "id": 7,
+  "name": "Морковь",
+  "price": 16.0,
+  "count": 5
+}
+
+###
+DELETE http://localhost:8080/products/8
+
+###
+GET http://localhost:8080/products/8
+
+###
+GET http://localhost:8080/products
+Content-Type: application/json

@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * Интерфейс для хранения части данных о клиенте
+ * Класс для хранения части данных о клиенте
  */
 @Data
 @AllArgsConstructor

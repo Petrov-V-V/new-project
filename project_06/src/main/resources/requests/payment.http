@@ -1,0 +1,9 @@
+###
+POST http://localhost:8080/payment
+Content-Type: application/json
+
+{
+  "cardNumber": "2135434165",
+  "userId": 7
+
+}

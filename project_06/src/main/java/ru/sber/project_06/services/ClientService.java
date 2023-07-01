@@ -1,30 +1,24 @@
 package ru.sber.project_06.services;
 
 import ru.sber.project_06.entities.ClientDTO;
-import ru.sber.project_06.entities.PaymentInfo;
 import ru.sber.project_06.entities.Client;
-import ru.sber.project_06.entities.Cart;
 import ru.sber.project_06.entities.Cart;
 import ru.sber.project_06.entities.Product;
 import ru.sber.project_06.entities.ProductCart;
 import ru.sber.project_06.repositories.ClientRepository;
 import ru.sber.project_06.repositories.CartRepository;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.ResultSetExtractor;
-
-import java.sql.PreparedStatement;
+import org.springframework.stereotype.Service;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Класс для совершения процессов которые свяазаны с клиентом
+ */
 @Service
-public class ClientService {
+public class ClientService implements ClientServiceInterface {
     private final ClientRepository clientRepository;
     private final CartRepository cartRepository;
 

@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
 
+/**
+ * Класс для хранения данных о клиентах
+ */
 @Entity
 @Data
 @AllArgsConstructor

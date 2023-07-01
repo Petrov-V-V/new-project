@@ -9,30 +9,28 @@ import ru.sber.project_06.entities.ProductCart;
 import ru.sber.project_06.repositories.CartRepository;
 import ru.sber.project_06.repositories.ClientRepository;
 import ru.sber.project_06.repositories.ProductCartRepository;
-import ru.sber.project_06.repositories.ProductRepository;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Класс для совершения процессов которые свяазаны с тележкой
+ */
 @Service
-public class CartService {
+public class CartService implements CartServiceInterface {
     private final ClientRepository clientRepository;
     private final CartRepository cartRepository;
     private final ProductCartRepository productCartRepository;
-    private final ProductRepository productRepository;
 
-    public CartService(CartRepository cartRepository, ProductCartRepository productCartRepository, ProductRepository productRepository, ClientRepository clientRepository) {
+    @Autowired
+    public CartService(CartRepository cartRepository, ProductCartRepository productCartRepository, ClientRepository clientRepository) {
         this.cartRepository = cartRepository;
         this.productCartRepository = productCartRepository;
-        this.productRepository = productRepository;
         this.clientRepository = clientRepository;
     }
 

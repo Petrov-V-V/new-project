@@ -1,7 +1,6 @@
 package ru.sber.project_06.controllers;
 
 import ru.sber.project_06.entities.Product;
-import ru.sber.project_06.repositories.ProductRepository;
 import ru.sber.project_06.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

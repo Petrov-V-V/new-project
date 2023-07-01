@@ -11,8 +11,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 
+
 /**
- * Интерфейс для хранения данных о продукте
+ * Класс для хранения данных о продуктах
  */
 @Entity
 @Data

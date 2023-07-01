@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
- * Интерфейс для хранения данных об оплате
+ * Класс для хранения данных об оплате
  */
 @Data
 @AllArgsConstructor
