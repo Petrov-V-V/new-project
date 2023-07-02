@@ -1,13 +1,13 @@
 ###
-POST http://localhost:8080/shopping-carts/7
+POST http://localhost:8080/shopping-carts/11
 Content-Type: application/json
 
 {
-  "id": 3
+  "id": 5
 }
 
 ###
-PUT http://localhost:8080/shopping-carts/7/product/7
+PUT http://localhost:8080/shopping-carts/11/product/5
 Content-Type: application/json
 
 {
