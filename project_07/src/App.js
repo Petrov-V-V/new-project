@@ -216,7 +216,7 @@ class App extends React.Component {
             <Col lg={3}>
               <Cart cartItems={cartItems} totalPrice={totalPrice} clearCart={this.clearCart} removeFromCart={this.removeFromCart} changeQuantity={this.changeQuantity} />
               <Card style={{ width: '290px', marginTop: '20px' }} >
-                <Card.Img variant="top" src={LordImage}/>
+                <Card.Img class="resize-image" variant="top" src={LordImage}/>
                 <Card.Body>
                   <Card.Title className="LordOfTheHouse">LordOfTheHouse</Card.Title>
                   <Card.Title className="email">dun@ge.on</Card.Title>
