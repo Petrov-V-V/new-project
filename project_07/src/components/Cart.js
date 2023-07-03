@@ -11,8 +11,13 @@ const Cart = ({ cartItems, totalPrice, clearCart, removeFromCart, changeQuantity
   };
 
   const handlePayment = () => {
-    window.alert('Оплата произведена!');
+    if (cartItems.length === 0) {
+      window.alert('Корзина пуста!');
+    } else {
+      window.alert('Оплата произведена!');
+    }
   };
+  
 
   return (
     <Card style={{ width: '18rem' }}>

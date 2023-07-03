@@ -209,7 +209,7 @@ class App extends React.Component {
                 changePrice={this.changePrice}
                 changeName={this.changeName}
               />
-              <Button variant="primary" onClick={this.addProduct}>
+              <Button variant="primary" onClick={this.addProduct} style={{ marginTop: '20px' }}>
                 Добавить продукт
               </Button>
             </Col>
