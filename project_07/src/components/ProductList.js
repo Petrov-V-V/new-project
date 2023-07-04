@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
-import { Row, Col, Card, Button, Form } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { Form, Input, Card, Row, Col, Button } from 'antd';
+const { Meta } = Card;
 
-const ProductList = ({ products, addToCart, deleteProduct, changePrice, changeName }) => {
-    const [newPrice, setNewPrice] = useState('');
-    const [newName, setNewName] = useState({});
+const ProductList = ({ addToCart, deleteProduct, changePrice, changeName }) => {
+  const products = useSelector((state) => state.product.filteredProducts);
+  const dispatch = useDispatch();
+
+  const [newPrice, setNewPrice] = useState('');
+  const [newName, setNewName] = useState({});
   
     const handlePriceChange = (productId, price) => {
         setNewPrice(prevState => ({
@@ -40,47 +45,50 @@ const ProductList = ({ products, addToCart, deleteProduct, changePrice, changeNa
       };
   
       return (
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4 g-4">
+        <Row gutter={[16, 16]}>
           {products.map((product) => (
-            <div key={product.id} className="col">
-              <Card>
-                <Card.Img variant="top" src={product.image} />
-                <Card.Body>
-                  <Card.Title className="name">{product.name}</Card.Title>
-                  <p className="price rub">{product.price}</p>
-                  <Button variant="primary" onClick={() => addToCart(product.name, product.price)}>
+            <Col key={product.id}>
+              <Card style={{ width: 200 }} cover={
+              <img
+                alt={product.name}
+                src={product.image}
+              />}>
+                < Meta
+                title={product.name}
+                description={<p className="price rub">{product.price} ₽</p>}
+              />
+                  <Button type="primary" onClick={() => addToCart(product.name, product.price)}>
                     В корзину
                   </Button>
-                  <Button variant="danger" onClick={() => deleteProduct(product.id)}>
+                  <Button danger style={{ marginTop: '10px' }} onClick={() => deleteProduct(product.id)}>
                     Удалить продукт
                   </Button>
-                  <Form.Group controlId={`priceInput${product.id}`}>
-                    <Form.Control
+                  <Form.Item style={{ marginTop: '10px' }} name={`priceInput${product.id}`}>
+                    <Input
                       type="number"
                       placeholder="Новая цена"
                       value={newPrice[product.id] || ''}
                       onChange={e => handlePriceChange(product.id, e.target.value)}
                     />
-                    <Button variant="secondary" onClick={() => handlePriceSubmit(product.id, newPrice[product.id])}>
+                    <Button style={{ marginTop: '2px' }} onClick={() => handlePriceSubmit(product.id, newPrice[product.id])}>
                       Изменить цену
                     </Button>
-                  </Form.Group>
-                  <Form.Group controlId={`nameInput${product.id}`}>
-                    <Form.Control
+                  </Form.Item>
+                  <Form.Item style={{ marginTop: '-15px', marginBottom: '-10px' }} controlId={`nameInput${product.id}`}>
+                    <Input
                       type="text"
                       placeholder="Новое имя"
                       value={newName[product.id] || ''}
                       onChange={e => handleNameChange(product.id, e.target.value)}
                     />
-                    <Button variant="secondary" onClick={() => handleNameSubmit(product.id, newName[product.id])}>
+                    <Button style={{ marginTop: '2px' }} onClick={() => handleNameSubmit(product.id, newName[product.id])}>
                       Изменить имя
                     </Button>
-                  </Form.Group>
-                </Card.Body>
+                  </Form.Item>
               </Card>
-            </div>
+            </Col>
           ))}
-        </div>
+        </Row>
       );
     };
   

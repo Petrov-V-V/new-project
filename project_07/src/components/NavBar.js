@@ -1,11 +1,17 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Layout, Menu } from 'antd';
+
+const { Header } = Layout;
 
 const NavBar = () => {
   return (
-    <Navbar bg="body-tertiary">
-      <Navbar.Brand style={{ paddingLeft: '40px', fontSize: '32px' }}>Хрум-Хрум</Navbar.Brand>
-    </Navbar>
+    <Layout>
+      <Header style={{ background: 'body-tertiary', paddingLeft: '40px' }}>
+        <div className="logo" style={{ fontSize: '32px', color: '#fff' }}>
+          Хрум-Хрум
+        </div>
+      </Header>
+    </Layout>
   );
 }
 
