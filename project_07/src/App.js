@@ -1,10 +1,9 @@
-import React, { useEffect  } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Row, Col, Input, Button, Layout, Card, AutoComplete } from 'antd';
+import { Row, Col, Input, Button, Layout, Card, AutoComplete, Modal, Select } from 'antd';
 import NavBar from './components/NavBar';
 import ProductList from './components/ProductList';
-import Search from './components/Search';
 import Cart from './components/Cart';
 import {
   addToCart,
@@ -14,22 +13,31 @@ import {
   clearCart,
   removeFromCart,
   changeQuantity,
-  setSearchQuery,
   addProduct,
   searchProducts
 } from './slices/productSlice';
-import LordImage from "./slices/img/LordOfTheHouse.jpg";
+import {
+  switchUser, addUser
+} from './slices/userSlice';
 
 const { Content } = Layout;
 const { Meta } = Card;
+const { Option } = Select;
 
 export const App = () => {
+  const [addUserModalVisible, setAddUserModalVisible] = useState(false);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [picture, setPicture] = useState('');
 
   const totalPrice = useSelector((state) => state.product.totalPrice);
   const cartItems = useSelector((state) => state.product.cartItems);
   const products = useSelector((state) => state.product.products);
   const searchQuery = useSelector((state) => state.product.searchQuery);
   const dispatch = useDispatch();
+
+  const users = useSelector((state) => state.user.users);
+  const currentUser = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     dispatch(searchProducts(''));
@@ -39,24 +47,23 @@ export const App = () => {
     dispatch(searchProducts(event.target.value));
   };
 
-  const handleSearch = (event) => {
-    dispatch(setSearchQuery(event.target.value));
-  };
-
   const handleAddToCart = (productName, productPrice) => {
     dispatch(addToCart({ name: productName, price: productPrice }));
   };
 
   const handleDeleteProduct = (productId) => {
     dispatch(deleteProduct(productId));
+    dispatch(searchProducts(''));
   };
 
   const handleChangePrice = (productId, newPrice) => {
     dispatch(changePrice({ id: productId, price: newPrice }));
+    dispatch(searchProducts(''));
   };
 
   const handleChangeName = (id, newName) => {
     dispatch(changeName({ id, name: newName }));
+    dispatch(searchProducts(''));
   };
 
   const handleClearCart = () => {
@@ -73,6 +80,24 @@ export const App = () => {
 
   const handleAddProduct = () => {
     dispatch(addProduct());
+    dispatch(searchProducts(''));
+  };
+
+  const handleSwitchUser = (userId) => {
+    dispatch(switchUser(userId));
+  };
+
+  const handleAddUser = () => {
+    const newUser = {
+      name,
+      email,
+      picture
+    };
+    dispatch(addUser(newUser));
+    setAddUserModalVisible(false);
+    setName('');
+    setEmail('');
+    setPicture('');
   };
 
   return (
@@ -119,22 +144,60 @@ export const App = () => {
               removeFromCart={handleRemoveFromCart}
               changeQuantity={handleChangeQuantity}
             />
-            <Card style={{ width: 290, marginTop: 20 }} cover={
-              <img class="resize-image"
-                alt="Lord of the House"
-                src={LordImage}
-              />}
-              >
-              < Meta
-                title="LordOfTheHouse"
-                description="dun@ge.on"
-                className="email"
-              />
-            </Card>
+            {currentUser && (
+                <Card style={{ width: 290, marginTop: 20 }} cover={
+                  <img
+                    className="resize-image"
+                    alt={currentUser.name}
+                    src={currentUser.picture}
+                  />}
+                >
+                  <Meta
+                    title={currentUser.name}
+                    description={currentUser.email}
+                    className="email"
+                  />
+                </Card>
+              )}
+              <div style={{ marginTop: 20 }}>
+                <h4>Сменить пользователя:</h4>
+                <Select style={{ width: 200 }} onChange={handleSwitchUser} defaultValue={currentUser?.name}>
+                  {users.map(user => (
+                    <Option key={user.id} value={user.name}>{user.name}</Option>
+                  ))}
+                </Select>
+              </div>
+              <div style={{ marginTop: 20 }}>
+                <Button type="primary" onClick={() => setAddUserModalVisible(true)}>
+                  Добавить пользователя
+                </Button>
+              </div>
           </Col>
         </Row>
       </Content>
     </Layout>
+      <Modal
+        title="Add User"
+        visible={addUserModalVisible}
+        onOk={handleAddUser}
+        onCancel={() => setAddUserModalVisible(false)}
+      >
+        <Input
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <Input
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <Input
+          placeholder="Picture URL/Path"
+          value={picture}
+          onChange={(e) => setPicture(e.target.value)}
+        />
+      </Modal>
     </div>
   );
 };
