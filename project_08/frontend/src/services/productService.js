@@ -1,5 +1,6 @@
 import axios from "axios";
-import { set } from '../slices/productSlice';
+import { set, searchProducts } from '../slices/productSlice';
+
 
 const API_URL = "http://localhost:8080/products";
 
@@ -9,6 +10,7 @@ const getProducts = (dispatch) => {
     .then(
       (response) => {
         dispatch(set(response.data));
+        dispatch(searchProducts(''));
       },
       (error) => {
         const _content =

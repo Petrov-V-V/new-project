@@ -6,24 +6,24 @@ const userSlice = createSlice({
   name: 'user',
   initialState: {
     users: [
-      {
-        id: 1,
-      name: 'LordOfTheHouse',
-      email: 'dun@ge.on',
-      picture: LordImage,
-      },
-      {
-        id: 2,
-        name: 'Pepegas',
-        email: 'pe@pe.pe',
-        picture: PepegaImage,
-      },
+      // {
+      //   id: 1,
+      // name: 'LordOfTheHouse',
+      // email: 'dun@ge.on',
+      // picture: LordImage,
+      // },
+      // {
+      //   id: 2,
+      //   name: 'Pepegas',
+      //   email: 'pe@pe.pe',
+      //   picture: PepegaImage,
+      // },
     ],
     currentUser: {
-      id: 1,
-      name: 'LordOfTheHouse',
-      email: 'dun@ge.on',
-      picture: LordImage,
+      // id: 1,
+      // name: 'LordOfTheHouse',
+      // email: 'dun@ge.on',
+      // picture: LordImage,
     },
   },
   reducers: {

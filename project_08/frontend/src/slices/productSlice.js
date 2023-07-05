@@ -13,12 +13,12 @@ export const productSlice = createSlice({
     cartItems: [],
     totalPrice: 0,
     products: [
-      { id: 1, name: 'Яблоко', price: 30, image: AppleImage },
-      { id: 2, name: 'Апельсин', price: 80, image: OrangeImage },
-      { id: 3, name: 'Банан', price: 70, image: BananaImage },
-      { id: 4, name: 'Арбуз', price: 150, image: WatermelonImage },
-      { id: 5, name: 'Персик', price: 70, image: PeachImage },
-      { id: 6, name: 'Груша', price: 60, image: PearImage }
+      // { id: 1, name: 'Яблоко', price: 30, image: AppleImage },
+      // { id: 2, name: 'Апельсин', price: 80, image: OrangeImage },
+      // { id: 3, name: 'Банан', price: 70, image: BananaImage },
+      // { id: 4, name: 'Арбуз', price: 150, image: WatermelonImage },
+      // { id: 5, name: 'Персик', price: 70, image: PeachImage },
+      // { id: 6, name: 'Груша', price: 60, image: PearImage }
     ],
     searchQuery: '',
     filteredProducts: [],

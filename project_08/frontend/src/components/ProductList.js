@@ -5,10 +5,11 @@ import { Form, Input, Card, Row, Col, Button } from 'antd';
 const { Meta } = Card;
 
 
-const ProductList = ({ addToCart, deleteProduct, changePrice, changeName }) => {
+const ProductList = ({ addToCart, deleteProduct, changePrice, changeName, changeQuantity }) => {
   const products = useSelector((state) => state.product.filteredProducts);
   const dispatch = useDispatch();
 
+  const [newQuantity, setNewQuantity] = useState('');
   const [newPrice, setNewPrice] = useState('');
   const [newName, setNewName] = useState({});
   
@@ -45,6 +46,23 @@ const ProductList = ({ addToCart, deleteProduct, changePrice, changeName }) => {
           }));
         }
       };
+
+      const handleQuantityChange = (productId, quantity) => {
+        setNewQuantity(prevState => ({
+          ...prevState,
+          [productId]: quantity
+        }));
+      };
+    
+      const handleQuantitySubmit = (productId, quantity) => {
+        if (quantity) {
+          changeQuantity(productId, parseInt(quantity, 10));
+          setNewQuantity(prevState => ({
+            ...prevState,
+            [productId]: ''
+          }));
+        }
+      };
   
       return (
         <Row gutter={[16, 16]}>
@@ -72,11 +90,11 @@ const ProductList = ({ addToCart, deleteProduct, changePrice, changeName }) => {
                       value={newPrice[product.id] || ''}
                       onChange={e => handlePriceChange(product.id, e.target.value)}
                     />
-                    <Button style={{ marginTop: '2px' }} onClick={() => handlePriceSubmit(product.id, newPrice[product.id])}>
+                    <Button  style={{ marginTop: '2px' }} onClick={() => handlePriceSubmit(product.id, newPrice[product.id])}>
                       Изменить цену
                     </Button>
                   </Form.Item>
-                  <Form.Item style={{ marginTop: '-15px', marginBottom: '-10px' }} controlId={`nameInput${product.id}`}>
+                  <Form.Item style={{ marginTop: '-15px'}} controlId={`nameInput${product.id}`}>
                     <Input
                       type="text"
                       placeholder="Новое имя"
@@ -85,6 +103,17 @@ const ProductList = ({ addToCart, deleteProduct, changePrice, changeName }) => {
                     />
                     <Button style={{ marginTop: '2px' }} onClick={() => handleNameSubmit(product.id, newName[product.id])}>
                       Изменить имя
+                    </Button>
+                  </Form.Item>
+                  <Form.Item style={{ marginTop: '-15px', marginBottom: '-10px' }} name={`quantityInput${product.id}`}>
+                    <Input
+                      type="number"
+                      placeholder="Новое количество"
+                      value={newQuantity[product.id] || ''}
+                      onChange={e => handleQuantityChange(product.id, e.target.value)}
+                    />
+                    <Button  style={{ marginTop: '2px' }} onClick={() => handleQuantitySubmit(product.id, newQuantity[product.id])}>
+                      Изменить кол-во
                     </Button>
                   </Form.Item>
               </Card>
