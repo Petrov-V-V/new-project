@@ -24,16 +24,6 @@ export const productSlice = createSlice({
     filteredProducts: []
   },
   reducers: {
-
-    handleSelect: (state, action) => {
-      state.searchQuery = action.payload;
-    },
-
-    renderOptions: (state) => {
-      // Logic to render autocomplete options
-      // You can use the state.products data to generate options
-      // Return the rendered options or modify the state as needed
-    },
     searchProducts: (state, action) => {
       state.searchQuery = action.payload;
       state.filteredProducts = state.products.filter((product) =>
