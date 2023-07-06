@@ -1,7 +1,7 @@
 package ru.sber.project_08.services;
 
 import ru.sber.project_08.entities.ClientDTO;
-import ru.sber.project_08.entities.Client;
+import ru.sber.project_08.entities.User;
 import ru.sber.project_08.entities.Product;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Optional;
  */
 @Service
 public interface ClientServiceInterface {
-    long registrate(Client client);
+    long registrate(User client);
     Optional<ClientDTO> findById(long id);
     boolean deleteById(long id);
 }

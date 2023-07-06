@@ -1,13 +1,31 @@
 import axios from "axios";
 import {getUser} from "./userService";
+import authService from "../services/authService";
+import {setCart} from "../slices/productSlice";
+import authHeader from "./authHeader";
+import { upadateCart
+  } from '../slices/productSlice';
 
 const API_URL = "http://localhost:8080/shopping-carts";
 
+export const getCart = (dispatch, id) => {
+    return axios.get(`${API_URL}/${id}`).then(
+        (response) => {
+            dispatch(setCart(response.data));
+        },
+        (error) => {
+            const _content = (error.response && error.response.data) ||
+                error.message ||
+                error.toString();
+            console.error(_content)
+            dispatch(setCart([]));
+        });
+};
 
 export const addProductToCart = (dispatch, idUser, product) => {
-    return axios.post(API_URL + `/${idUser}`, product).then(
+    return axios.post(API_URL + `/${idUser}`, product,  {headers: authHeader()}).then(
         (response) => {
-            getUser(dispatch, idUser)
+            getCart(dispatch, idUser)
         },
         (error) => {
             const _content = (error.response && error.response.data) ||
@@ -19,9 +37,9 @@ export const addProductToCart = (dispatch, idUser, product) => {
 };
 
 const updateProductInCart = (dispatch, idUser, productId, product) => {
-    return axios.put(API_URL + `/${idUser}/product/${productId}`, product).then(
+    return axios.put(API_URL + `/${idUser}/product/${productId}`, product,  {headers: authHeader()}).then(
         (response) => {
-            getUser(dispatch, idUser)
+            getCart(dispatch, idUser)
         },
         (error) => {
             const _content = (error.response && error.response.data) ||
@@ -33,9 +51,9 @@ const updateProductInCart = (dispatch, idUser, productId, product) => {
 };
 
 const deleteProductFromCart = (dispatch, userId, productId) => {
-    return axios.delete(API_URL + `/${userId}/products/${productId}`).then(
+    return axios.delete(API_URL + `/${userId}/products/${productId}`,  {headers: authHeader()}).then(
         (response) => {
-            getUser(dispatch, userId)
+            getCart(dispatch, userId)
         },
         (error) => {
             const _content = (error.response && error.response.data) ||
@@ -47,7 +65,7 @@ const deleteProductFromCart = (dispatch, userId, productId) => {
 };
 
 const cartService = {
-    addProductToCart, updateProductInCart, deleteProductFromCart
+    getCart, addProductToCart, updateProductInCart, deleteProductFromCart
 };
 
 

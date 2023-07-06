@@ -1,7 +1,10 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Card, Button, InputNumber, List, Row, Col } from 'antd';
 
-const Cart = ({ cartItems, clearCart, removeFromCart, changeQuantity, doPayment }) => {
+const Cart = ({ clearCart, removeFromCart, changeQuantity, doPayment }) => {
+  const cartItems = useSelector((state) => state.product.cartItems);
+  console.log(cartItems);
   const handleRemoveFromCart = (item) => {
     removeFromCart(item);
   };

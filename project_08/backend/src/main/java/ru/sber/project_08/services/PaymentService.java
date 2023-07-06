@@ -44,6 +44,7 @@ public class PaymentService implements PaymentServiceInteface {
             if (bankProxy.checkMeansCustomer(paymentInfo.getCardNumber(), BigDecimal.valueOf(totalCartPrice))) {
                 List<CartProducts> cartProducts = cartService.getCartProducts(paymentInfo.getUserId());
                 
+                    System.out.println(cartProducts);
                 for (CartProducts cartProduct : cartProducts) {
                 if (cartProduct.getQuantity() <= cartProduct.getCount()){
                     productService.updateProductCount(cartProduct.getId(), cartProduct.getQuantity());

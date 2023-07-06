@@ -22,23 +22,18 @@ export const productSlice = createSlice({
         product.name.toLowerCase().includes(state.searchQuery.toLowerCase())
       );
     },
+    upadateCart: (state, action) => {
+      state.cartItems = state.cartItems;
+    },
 
   }
 });
 
 export const {
-  addToCart,
-  deleteProduct,
-  changePrice,
-  changeName,
-  clearCart,
-  removeFromCart,
-  changeQuantity,
-  setSearchQuery,
-  addProduct,
   searchProducts,
   set,
-  setCart
+  setCart,
+  upadateCart
 } = productSlice.actions;
 
 export default productSlice.reducer;

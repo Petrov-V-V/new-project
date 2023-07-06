@@ -5,21 +5,19 @@ import { Row, Col, Input, Button, Layout, Card, AutoComplete, Modal, Select } fr
 import ProductList from './ProductList';
 import Cart from './Cart';
 import {
-  searchProducts
+  searchProducts, upadateCart
 } from '../slices/productSlice';
 import productService from '../services/productService';
 import userService from '../services/userService';
 import cartService from '../services/cartService';
 import paymentService from '../services/paymentService';
+import authService from "../services/authService";
+import {login} from "../slices/authSlice";
 
 
 const { Content } = Layout;
 const { Meta } = Card;
 
-
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 export const App = () => {
   const [selectedUser, setSelectedUser] = useState('');
@@ -34,9 +32,9 @@ export const App = () => {
   const [productQuantity, setProductQuantity] = useState('');
   const [addUserModalVisible, setAddUserModalVisible] = useState(false);
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerUsername, setRegisterUsername] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
 
   const totalPrice = useSelector((state) => state.product.totalPrice);
   const cartItems = useSelector((state) => state.product.cartItems);
@@ -46,14 +44,12 @@ export const App = () => {
 
   const users = useSelector((state) => state.user.users);
   const currentUser = useSelector((state) => state.user.currentUser);
+  const theMostCurrentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
+    cartService.getCart(dispatch, theMostCurrentUser.id);
     productService.getProducts(dispatch);
   }, []);
-
-  useEffect(() => {
-    dispatch(searchProducts(''));
-  }, [dispatch]);
 
   const handleSearchQueryChange = (event) => {
     dispatch(searchProducts(event.target.value));
@@ -61,17 +57,18 @@ export const App = () => {
 
   const handlePayment = () => {
     const newInfo = {
-      "cardNumber": "2135434165",
-      "userId": currentUser.id
+      cardNumber: "2135434165",
+      userId: theMostCurrentUser.id
     }
-    paymentService.pay(dispatch, newInfo, currentUser.id);
+    paymentService.pay(dispatch, newInfo, theMostCurrentUser.id);
   };
 
   const handleAddToCart = (productId) => {
+    console.log(theMostCurrentUser.id);
     const newProductId = {
       id: productId
     };
-    cartService.addProductToCart(dispatch, currentUser.id, newProductId);
+    cartService.addProductToCart(dispatch, theMostCurrentUser.id, newProductId);
   };
 
   const handleClearCart = () => {
@@ -81,14 +78,14 @@ export const App = () => {
   };
 
   const handleRemoveFromCart = (productId) => {
-    cartService.deleteProductFromCart(dispatch, currentUser.id, productId);
+    cartService.deleteProductFromCart(dispatch, theMostCurrentUser.id, productId);
   };
 
   const handleChangeQuantity = (id, quantity) => {
     const newProductQuantity = {
       "count": quantity
     };
-    cartService.updateProductInCart( dispatch, currentUser.id, id, newProductQuantity );
+    cartService.updateProductInCart( dispatch, theMostCurrentUser.id, id, newProductQuantity );
   };
 
   const handleAddProduct = () => {
@@ -140,17 +137,16 @@ export const App = () => {
 
   const handleAddUser = () => {
     const newUser = {
-      name: name,
-      email: email,
-      username: login,
-      password: password,
+      username: registerEmail,
+      email: registerUsername,
+      password: registerPassword,
     };
-    userService.createUser(dispatch, newUser);
+    authService.register(newUser);
+    // userService.createUser(dispatch, newUser);
     setAddUserModalVisible(false);
-    setName('');
-    setEmail('');
-    setLogin('');
-    setPassword('');
+    setRegisterEmail('');
+    setRegisterUsername('');
+    setRegisterPassword('');
   };
 
   const handleSwitchUser = (userId) => {
@@ -163,11 +159,16 @@ export const App = () => {
 
   const handleLogInOperation = (logInEmail, logInPassword) => {
     const newLoginInfo = {
-      "email": logInEmail,
+      "username": logInEmail,
       "password": logInPassword
     }
-    console.log(newLoginInfo);
-    userService.getUserByEmail(dispatch, newLoginInfo);
+    // console.log(newLoginInfo);
+    // userService.getUserByEmail(dispatch, newLoginInfo);
+    authService.login(newLoginInfo).then((user) => {
+      console.log(user)
+      dispatch(login(user))
+      cartService.getCart(dispatch, user.id);
+    })
   };
   
   const handleClickLogIn = () => {
@@ -222,23 +223,16 @@ export const App = () => {
           </Col>
           <Col>
             <Cart
-              cartItems={cartItems} 
               clearCart={handleClearCart}
               removeFromCart={handleRemoveFromCart}
               changeQuantity={handleChangeQuantity}
               doPayment={handlePayment}
             />
-            {currentUser && (
-                <Card style={{ width: 290, marginTop: 20 }} cover={
-                  <img
-                    className="resize-image"
-                    alt={currentUser.name}
-                    src={currentUser.picture}
-                  />}
-                >
+            {theMostCurrentUser && (
+                <Card style={{ width: 290, marginTop: 20 }} >
                   <Meta
-                    title={currentUser.name}
-                    description={currentUser.email}
+                    title={theMostCurrentUser.username}
+                    description={theMostCurrentUser.email}
                     className="email"
                   />
                 </Card>
@@ -288,24 +282,19 @@ export const App = () => {
         onCancel={() => setAddUserModalVisible(false)}
       >
         <Input style={{ marginTop: 10 }}
-          placeholder="Имя"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <Input style={{ marginTop: 10 }}
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={registerEmail}
+          onChange={(e) => setRegisterEmail(e.target.value)}
         />
         <Input style={{ marginTop: 10 }}
-          placeholder="Логин"
-          value={login}
-          onChange={(e) => setLogin(e.target.value)}
+          placeholder="Логин" 
+          value={registerUsername}
+          onChange={(e) => setRegisterUsername(e.target.value)}
         />
         <Input style={{ marginTop: 10 }}
           placeholder="Пароль"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={registerPassword}
+          onChange={(e) => setRegisterPassword(e.target.value)}
         />        
       </Modal>
       <Modal

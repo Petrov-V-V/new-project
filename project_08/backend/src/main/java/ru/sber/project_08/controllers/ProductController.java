@@ -4,6 +4,7 @@ import ru.sber.project_08.entities.Product;
 import ru.sber.project_08.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -26,6 +27,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         log.info("Добавление продукта {}", product);
 
@@ -52,6 +54,7 @@ public class ProductController {
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public Product updateProduct(@RequestBody Product product) {
         log.info("Обновление продукта");
         productService.update(product);
@@ -59,6 +62,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteProduct(@PathVariable long id) {
         log.info("Удаление продукта по id {}", id);
         boolean isDeleted = productService.deleteById(id);

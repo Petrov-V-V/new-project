@@ -1,6 +1,6 @@
 package ru.sber.project_08.controllers;
 
-import ru.sber.project_08.entities.Client;
+import ru.sber.project_08.entities.User;
 import ru.sber.project_08.entities.ClientDTO;
 import ru.sber.project_08.services.ClientService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity<?> registrateClient(@RequestBody Client client) {
+    public ResponseEntity<?> registrateClient(@RequestBody User client) {
         log.info("Регистрация клиента {}", client);
 
         return ResponseEntity.created(URI.create("/client/"+clientService.registrate(client))).build();
