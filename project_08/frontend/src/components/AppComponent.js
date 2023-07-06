@@ -2,33 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Row, Col, Input, Button, Layout, Card, AutoComplete, Modal, Select } from 'antd';
-import NavBar from './NavBar';
 import ProductList from './ProductList';
 import Cart from './Cart';
 import {
-  addToCart,
-  deleteProduct,
-  changePrice,
-  changeName,
-  clearCart,
-  removeFromCart,
-  changeQuantity,
-  addProduct,
   searchProducts
 } from '../slices/productSlice';
-import {
-  switchUser, addUser
-} from '../slices/userSlice';
 import productService from '../services/productService';
 import userService from '../services/userService';
 import cartService from '../services/cartService';
 import paymentService from '../services/paymentService';
-import {Link, Route, Routes} from "react-router-dom";
 
 
 const { Content } = Layout;
 const { Meta } = Card;
-const { Option } = Select;
 
 
 function sleep(ms) {
@@ -38,7 +24,10 @@ function sleep(ms) {
 export const App = () => {
   const [selectedUser, setSelectedUser] = useState('');
   const [userForDelete, setUserForDelete] = useState('');
-  
+
+  const [switchUserModalVisible, setSwitchUserModalVisible] = useState(false);
+  const [logInEmail, setLogInEmail] = useState('');
+  const [logInPassword, setLogInPassword] = useState('');  
   const [addProductModalVisible, setAddProductModalVisible] = useState(false);
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
@@ -166,11 +155,26 @@ export const App = () => {
 
   const handleSwitchUser = (userId) => {
     userService.getUser(dispatch, userId);
-    console.log(currentUser.cart);
   };
   
   const handleClick = () => {
     handleSwitchUser(selectedUser);
+  };
+
+  const handleLogInOperation = (logInEmail, logInPassword) => {
+    const newLoginInfo = {
+      "email": logInEmail,
+      "password": logInPassword
+    }
+    console.log(newLoginInfo);
+    userService.getUserByEmail(dispatch, newLoginInfo);
+  };
+  
+  const handleClickLogIn = () => {
+    handleLogInOperation(logInEmail, logInPassword);
+    setSwitchUserModalVisible(false);
+    setLogInEmail('');
+    setLogInPassword('');
   };
 
   const handleDeleteUser = (userId) => {
@@ -191,7 +195,6 @@ export const App = () => {
           </Col>
           <Col span={6}>
           <AutoComplete
-          // options={products.filter(product => product.name.toLowerCase().includes(searchQuery.toLowerCase())).map((product) => ({ value: product.name }))}
           style={{ width: 290 }}
           >
             <Input.Search
@@ -240,22 +243,11 @@ export const App = () => {
                   />
                 </Card>
               )}
-              {/* <div style={{ marginTop: 20 }}>
-                <h4>Сменить пользователя:</h4>
-                <Select style={{ width: 200 }} onChange={handleSwitchUser} defaultValue={currentUser?.name}>
-                  {users.map(user => (
-                    <Option key={user.id} value={user.name}>{user.name}</Option>
-                  ))}
-                </Select>
-              </div>
-              <div style={{ marginTop: 20 }}>
-                <Button type="primary" onClick={() => setAddUserModalVisible(true)}>
-                  Добавить пользователя
-                </Button>
-              </div> */}
               <div style={{ marginTop: 20 }}>
                 <h4>Действия с пользователем:</h4>
+                {/*
                 <Input
+                  placeholder="Id"
                   style={{ width: 200 }}
                   value={selectedUser}
                   onChange={e => setSelectedUser(e.target.value)}
@@ -265,6 +257,7 @@ export const App = () => {
                 </Button>
                 <div style={{ marginTop: 20 }}>
                 <Input
+                  placeholder="Id"
                   style={{ width: 200 }}
                   value={userForDelete}
                   onChange={e => setUserForDelete(e.target.value)}
@@ -272,19 +265,24 @@ export const App = () => {
                   <Button type="primary" onClick={handleClickDelete} style={{ marginTop: 10 }}>
                     Удалить
                   </Button>
-                </div>
-                <div style={{ marginTop: 20 }}>
-                  <Button type="primary" onClick={() => setAddUserModalVisible(true)}>
-                    Добавить пользователя
+                </div> */}
+                <Row  gutter={[1,1]} justify="space-between" align="middle" style={{ marginTop: 20 }}>
+                  <Col></Col>
+                  <Button type="primary" onClick={() => setSwitchUserModalVisible(true)}>
+                    Вход
                   </Button>
-                </div>
+                  <Button type="primary" onClick={() => setAddUserModalVisible(true)}>
+                    Регистрация
+                  </Button>
+                  <Col></Col>
+                  </Row>
               </div>
           </Col>
         </Row>
       </Content>
     </Layout>
       <Modal
-        title="Add User"
+        title="Регистрация"
         visible={addUserModalVisible}
         onOk={handleAddUser}
         onCancel={() => setAddUserModalVisible(false)}
@@ -311,7 +309,24 @@ export const App = () => {
         />        
       </Modal>
       <Modal
-        title="Add Product"
+        title="Вход"
+        visible={switchUserModalVisible}
+        onOk={handleClickLogIn}
+        onCancel={() => setSwitchUserModalVisible(false)}
+      >
+        <Input style={{ marginTop: 10 }}
+          placeholder="Email"
+          value={logInEmail}
+          onChange={(e) => setLogInEmail(e.target.value)}
+        />
+        <Input style={{ marginTop: 10 }}
+          placeholder="Пароль"
+          value={logInPassword}
+          onChange={(e) => setLogInPassword(e.target.value)}
+        />    
+      </Modal>
+      <Modal
+        title="Добавление продукта"
         visible={addProductModalVisible}
         onOk={handleAddProduct}
         onCancel={() => setAddProductModalVisible(false)}

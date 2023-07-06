@@ -14,7 +14,7 @@ const Cart = ({ cartItems, clearCart, removeFromCart, changeQuantity, doPayment 
     if (cartItems.length === 0) {
       window.alert('Корзина пуста!');
     } else {
-      window.alert('Оплата произведена!');
+      window.alert('Запрос на оплату был отправлен!');
       doPayment();
     }
   };

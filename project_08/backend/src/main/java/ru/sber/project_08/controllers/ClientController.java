@@ -2,10 +2,7 @@ package ru.sber.project_08.controllers;
 
 import ru.sber.project_08.entities.Client;
 import ru.sber.project_08.entities.ClientDTO;
-import ru.sber.project_08.entities.ProductCart;
-import ru.sber.project_08.repositories.ClientRepository;
 import ru.sber.project_08.services.ClientService;
-import ru.sber.project_08.services.ProductService;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.http.ResponseEntity;
@@ -40,6 +37,19 @@ public class ClientController {
     public ResponseEntity<ClientDTO> getClient(@PathVariable long id) {
         log.info("Получение информации о клиенте по id {}", id);
         Optional<ClientDTO> client = clientService.findById(id);
+
+        if (client.isPresent()) {
+            ClientDTO clientDTO = client.get();
+            return ResponseEntity.ok().body(clientDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping
+    public ResponseEntity<ClientDTO> getClientByEmail(@RequestParam("email") String email, @RequestParam("password") String password) {
+        log.info("Получение информации о клиенте");
+        Optional<ClientDTO> client = clientService.findByEmailAndPassword(email, password);
 
         if (client.isPresent()) {
             ClientDTO clientDTO = client.get();

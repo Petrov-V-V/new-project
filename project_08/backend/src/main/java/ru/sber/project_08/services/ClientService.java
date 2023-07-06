@@ -55,6 +55,19 @@ public class ClientService implements ClientServiceInterface {
         return Optional.empty();
     }
 
+    public Optional<ClientDTO> findByEmailAndPassword(String email, String password) {
+        Optional<Client> optionalClient = clientRepository.findByEmailAndPassword(email, password);
+        
+        if (optionalClient.isPresent()) {
+            Client client = optionalClient.get();
+            Cart cart = client.getCart();
+            List<Product> products = fetchProductsForCart(cart.getId());
+            return Optional.of(new ClientDTO((long) client.getId(), client.getName(), client.getUsername(), client.getEmail(), products));
+        }
+
+        return Optional.empty();
+    }
+
     private List<Product> fetchProductsForCart(long cartId) {
         List<ProductCart> productCarts = cartRepository.findProductCartsByCartId(cartId);
         List<Product> products = new ArrayList<>();

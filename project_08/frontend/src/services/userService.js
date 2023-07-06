@@ -16,7 +16,24 @@ export const getUser = (dispatch, id) => {
                 error.toString();
             console.error(_content)
             dispatch(set([]));
+            dispatch(setCart([]));
         });
+};
+
+export const getUserByEmail = (dispatch, loginData) => {
+  return axios.get(API_URL, { params: loginData }).then(
+      (response) => {
+          dispatch(set(response.data));
+          dispatch(setCart(response.data.cart));
+      },
+      (error) => {
+          const _content = (error.response && error.response.data) ||
+              error.message ||
+              error.toString();
+          console.error(_content)
+          dispatch(set([]));
+          dispatch(setCart([]));
+      });
 };
 
 export const createUser = (dispatch, user) => {
@@ -52,7 +69,7 @@ const deleteUser = (dispatch, id) => {
 };
 
 const userService = {
-    getUser, createUser, deleteUser
+    getUser, getUserByEmail, createUser, deleteUser
 };
 
 export default userService
