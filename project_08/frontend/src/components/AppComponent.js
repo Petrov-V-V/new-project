@@ -284,7 +284,7 @@ export const App = () => {
       </Content>
     </Layout>
       <Modal
-        title="Add User"
+        title="Добавление пользователя"
         visible={addUserModalVisible}
         onOk={handleAddUser}
         onCancel={() => setAddUserModalVisible(false)}
@@ -311,7 +311,7 @@ export const App = () => {
         />        
       </Modal>
       <Modal
-        title="Add Product"
+        title="Добавление продукта"
         visible={addProductModalVisible}
         onOk={handleAddProduct}
         onCancel={() => setAddProductModalVisible(false)}
