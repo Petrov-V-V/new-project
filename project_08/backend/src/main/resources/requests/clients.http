@@ -13,4 +13,13 @@ Content-Type: application/json
 GET http://localhost:8080/clients/6
 
 ###
+GET http://localhost:8080/clients
+Content-Type: application/json
+
+{
+  "email": "abobus@d.d",
+  "password": "213d234fd"
+}
+
+###
 DELETE http://localhost:8080/clients/11

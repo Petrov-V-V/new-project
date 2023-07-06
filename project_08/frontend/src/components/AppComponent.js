@@ -24,6 +24,8 @@ function sleep(ms) {
 export const App = () => {
   const [selectedUser, setSelectedUser] = useState('');
   const [userForDelete, setUserForDelete] = useState('');
+  const [logInEmail, setLogInEmail] = useState('');
+  const [logInPassword, setLogInPassword] = useState('');
   
   const [addProductModalVisible, setAddProductModalVisible] = useState(false);
   const [productName, setProductName] = useState('');
@@ -152,11 +154,23 @@ export const App = () => {
 
   const handleSwitchUser = (userId) => {
     userService.getUser(dispatch, userId);
-    console.log(currentUser.cart);
   };
   
   const handleClick = () => {
     handleSwitchUser(selectedUser);
+  };
+
+  const handleLogInOperation = (logInEmail, logInPassword) => {
+    const newLoginInfo = {
+      "email": logInEmail,
+      "password": logInPassword
+    }
+    console.log(newLoginInfo);
+    userService.getUserByEmail(dispatch, newLoginInfo);
+  };
+  
+  const handleClickLogIn = () => {
+    handleLogInOperation(logInEmail, logInPassword);
   };
 
   const handleDeleteUser = (userId) => {
@@ -227,6 +241,25 @@ export const App = () => {
               )}
               <div style={{ marginTop: 20 }}>
                 <h4>Действия с пользователем:</h4>
+                <div>
+                <Input
+                style={{ width: 200 }}
+                value={logInEmail}
+                onChange={e => setLogInEmail(e.target.value)}
+                />
+                </div>
+                <div>
+                <Input
+                style={{ width: 200 }}
+                value={logInPassword}
+                onChange={e => setLogInPassword(e.target.value)}
+                />
+                </div>
+                <div>
+                <Button type="primary" onClick={handleClickLogIn} style={{ marginTop: 10 }}>
+                Войти
+                </Button>
+                </div>
                 <Input
                   style={{ width: 200 }}
                   value={selectedUser}
