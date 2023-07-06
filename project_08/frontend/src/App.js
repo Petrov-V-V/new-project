@@ -4,7 +4,6 @@ import {Content, Header} from "antd/es/layout/layout";
 import React, {useState} from "react";
 import {Link, Route, Routes} from "react-router-dom";
 import {MainPage} from "./pages/MainPage";
-// import {AboutPage} from "./pages/AboutPage";
 import {NotFoundPage} from "./pages/NotFoundPage";
 import NavBar from './components/NavBar';
 

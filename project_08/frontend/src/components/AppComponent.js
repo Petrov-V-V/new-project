@@ -2,33 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Row, Col, Input, Button, Layout, Card, AutoComplete, Modal, Select } from 'antd';
-import NavBar from './NavBar';
 import ProductList from './ProductList';
 import Cart from './Cart';
 import {
-  addToCart,
-  deleteProduct,
-  changePrice,
-  changeName,
-  clearCart,
-  removeFromCart,
-  changeQuantity,
-  addProduct,
   searchProducts
 } from '../slices/productSlice';
-import {
-  switchUser, addUser
-} from '../slices/userSlice';
 import productService from '../services/productService';
 import userService from '../services/userService';
 import cartService from '../services/cartService';
 import paymentService from '../services/paymentService';
-import {Link, Route, Routes} from "react-router-dom";
 
 
 const { Content } = Layout;
 const { Meta } = Card;
-const { Option } = Select;
 
 
 function sleep(ms) {
@@ -191,7 +177,6 @@ export const App = () => {
           </Col>
           <Col span={6}>
           <AutoComplete
-          // options={products.filter(product => product.name.toLowerCase().includes(searchQuery.toLowerCase())).map((product) => ({ value: product.name }))}
           style={{ width: 290 }}
           >
             <Input.Search
@@ -240,19 +225,6 @@ export const App = () => {
                   />
                 </Card>
               )}
-              {/* <div style={{ marginTop: 20 }}>
-                <h4>Сменить пользователя:</h4>
-                <Select style={{ width: 200 }} onChange={handleSwitchUser} defaultValue={currentUser?.name}>
-                  {users.map(user => (
-                    <Option key={user.id} value={user.name}>{user.name}</Option>
-                  ))}
-                </Select>
-              </div>
-              <div style={{ marginTop: 20 }}>
-                <Button type="primary" onClick={() => setAddUserModalVisible(true)}>
-                  Добавить пользователя
-                </Button>
-              </div> */}
               <div style={{ marginTop: 20 }}>
                 <h4>Действия с пользователем:</h4>
                 <Input
