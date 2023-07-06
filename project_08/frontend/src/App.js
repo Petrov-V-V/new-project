@@ -1,8 +1,8 @@
 import './App.css';
 import {Layout} from "antd";
-import {Content, Header} from "antd/es/layout/layout";
-import React, {useState} from "react";
-import {Link, Route, Routes} from "react-router-dom";
+import {Content} from "antd/es/layout/layout";
+import React from "react";
+import {Route, Routes} from "react-router-dom";
 import {MainPage} from "./pages/MainPage";
 import {NotFoundPage} from "./pages/NotFoundPage";
 import NavBar from './components/NavBar';

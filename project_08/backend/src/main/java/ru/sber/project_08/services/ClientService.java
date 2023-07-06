@@ -1,11 +1,11 @@
 package ru.sber.project_08.services;
 
 import ru.sber.project_08.entities.ClientDTO;
-import ru.sber.project_08.entities.Client;
+import ru.sber.project_08.entities.User;
 import ru.sber.project_08.entities.Cart;
 import ru.sber.project_08.entities.Product;
 import ru.sber.project_08.entities.ProductCart;
-import ru.sber.project_08.repositories.ClientRepository;
+import ru.sber.project_08.repositories.UserRepository;
 import ru.sber.project_08.repositories.CartRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,32 +21,32 @@ import java.util.Optional;
  */
 @Service
 public class ClientService implements ClientServiceInterface {
-    private final ClientRepository clientRepository;
+    private final UserRepository clientRepository;
     private final CartRepository cartRepository;
 
     @Autowired
-    public ClientService(ClientRepository clientRepository, CartRepository cartRepository) {
+    public ClientService(UserRepository clientRepository, CartRepository cartRepository) {
         this.clientRepository = clientRepository;
         this.cartRepository = cartRepository;
     }
 
 
-    public long registrate(Client client) {
+    public long registrate(User client) {
         Cart cart = new Cart();
         cart = cartRepository.save(cart); 
 
         client.setCart(cart);
 
-        Client savedClient = clientRepository.save(client); 
+        User savedClient = clientRepository.save(client); 
 
         return savedClient.getId();
     }
 
     public Optional<ClientDTO> findById(long id) {
-        Optional<Client> optionalClient = clientRepository.findById(id);
+        Optional<User> optionalClient = clientRepository.findById(id);
 
         if (optionalClient.isPresent()) {
-            Client client = optionalClient.get();
+            User client = optionalClient.get();
             Cart cart = client.getCart();
             List<Product> products = fetchProductsForCart(cart.getId());
             return Optional.of(new ClientDTO((long) client.getId(), client.getName(), client.getUsername(), client.getEmail(), products));
@@ -56,10 +56,10 @@ public class ClientService implements ClientServiceInterface {
     }
 
     public Optional<ClientDTO> findByEmailAndPassword(String email, String password) {
-        Optional<Client> optionalClient = clientRepository.findByEmailAndPassword(email, password);
+        Optional<User> optionalClient = clientRepository.findByEmailAndPassword(email, password);
         
         if (optionalClient.isPresent()) {
-            Client client = optionalClient.get();
+            User client = optionalClient.get();
             Cart cart = client.getCart();
             List<Product> products = fetchProductsForCart(cart.getId());
             return Optional.of(new ClientDTO((long) client.getId(), client.getName(), client.getUsername(), client.getEmail(), products));
@@ -83,10 +83,10 @@ public class ClientService implements ClientServiceInterface {
 
     @Transactional
     public boolean deleteById(long id) {
-        Optional<Client> optionalClient = clientRepository.findById(id);
+        Optional<User> optionalClient = clientRepository.findById(id);
 
         if (optionalClient.isPresent()) {
-            Client client = optionalClient.get();
+            User client = optionalClient.get();
             Cart cart = client.getCart();
 
             clientRepository.delete(client);

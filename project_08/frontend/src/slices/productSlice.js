@@ -21,21 +21,12 @@ export const productSlice = createSlice({
       state.filteredProducts = state.products.filter((product) =>
         product.name.toLowerCase().includes(state.searchQuery.toLowerCase())
       );
-    },
+    }
 
   }
 });
 
 export const {
-  addToCart,
-  deleteProduct,
-  changePrice,
-  changeName,
-  clearCart,
-  removeFromCart,
-  changeQuantity,
-  setSearchQuery,
-  addProduct,
   searchProducts,
   set,
   setCart
