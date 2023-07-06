@@ -24,9 +24,10 @@ function sleep(ms) {
 export const App = () => {
   const [selectedUser, setSelectedUser] = useState('');
   const [userForDelete, setUserForDelete] = useState('');
+
+  const [switchUserModalVisible, setSwitchUserModalVisible] = useState(false);
   const [logInEmail, setLogInEmail] = useState('');
-  const [logInPassword, setLogInPassword] = useState('');
-  
+  const [logInPassword, setLogInPassword] = useState('');  
   const [addProductModalVisible, setAddProductModalVisible] = useState(false);
   const [productName, setProductName] = useState('');
   const [productPrice, setProductPrice] = useState('');
@@ -171,6 +172,9 @@ export const App = () => {
   
   const handleClickLogIn = () => {
     handleLogInOperation(logInEmail, logInPassword);
+    setSwitchUserModalVisible(false);
+    setLogInEmail('');
+    setLogInPassword('');
   };
 
   const handleDeleteUser = (userId) => {
@@ -241,26 +245,9 @@ export const App = () => {
               )}
               <div style={{ marginTop: 20 }}>
                 <h4>Действия с пользователем:</h4>
-                <div>
+                {/*
                 <Input
-                style={{ width: 200 }}
-                value={logInEmail}
-                onChange={e => setLogInEmail(e.target.value)}
-                />
-                </div>
-                <div>
-                <Input
-                style={{ width: 200 }}
-                value={logInPassword}
-                onChange={e => setLogInPassword(e.target.value)}
-                />
-                </div>
-                <div>
-                <Button type="primary" onClick={handleClickLogIn} style={{ marginTop: 10 }}>
-                Войти
-                </Button>
-                </div>
-                <Input
+                  placeholder="Id"
                   style={{ width: 200 }}
                   value={selectedUser}
                   onChange={e => setSelectedUser(e.target.value)}
@@ -270,6 +257,7 @@ export const App = () => {
                 </Button>
                 <div style={{ marginTop: 20 }}>
                 <Input
+                  placeholder="Id"
                   style={{ width: 200 }}
                   value={userForDelete}
                   onChange={e => setUserForDelete(e.target.value)}
@@ -277,19 +265,24 @@ export const App = () => {
                   <Button type="primary" onClick={handleClickDelete} style={{ marginTop: 10 }}>
                     Удалить
                   </Button>
-                </div>
-                <div style={{ marginTop: 20 }}>
-                  <Button type="primary" onClick={() => setAddUserModalVisible(true)}>
-                    Добавить пользователя
+                </div> */}
+                <Row  gutter={[1,1]} justify="space-between" align="middle" style={{ marginTop: 20 }}>
+                  <Col></Col>
+                  <Button type="primary" onClick={() => setSwitchUserModalVisible(true)}>
+                    Вход
                   </Button>
-                </div>
+                  <Button type="primary" onClick={() => setAddUserModalVisible(true)}>
+                    Регистрация
+                  </Button>
+                  <Col></Col>
+                  </Row>
               </div>
           </Col>
         </Row>
       </Content>
     </Layout>
       <Modal
-        title="Добавление пользователя"
+        title="Регистрация"
         visible={addUserModalVisible}
         onOk={handleAddUser}
         onCancel={() => setAddUserModalVisible(false)}
@@ -314,6 +307,23 @@ export const App = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />        
+      </Modal>
+      <Modal
+        title="Вход"
+        visible={switchUserModalVisible}
+        onOk={handleClickLogIn}
+        onCancel={() => setSwitchUserModalVisible(false)}
+      >
+        <Input style={{ marginTop: 10 }}
+          placeholder="Email"
+          value={logInEmail}
+          onChange={(e) => setLogInEmail(e.target.value)}
+        />
+        <Input style={{ marginTop: 10 }}
+          placeholder="Пароль"
+          value={logInPassword}
+          onChange={(e) => setLogInPassword(e.target.value)}
+        />    
       </Modal>
       <Modal
         title="Добавление продукта"

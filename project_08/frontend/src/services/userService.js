@@ -16,6 +16,7 @@ export const getUser = (dispatch, id) => {
                 error.toString();
             console.error(_content)
             dispatch(set([]));
+            dispatch(setCart([]));
         });
 };
 
@@ -31,6 +32,7 @@ export const getUserByEmail = (dispatch, loginData) => {
               error.toString();
           console.error(_content)
           dispatch(set([]));
+          dispatch(setCart([]));
       });
 };
 
