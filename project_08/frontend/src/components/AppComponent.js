@@ -5,14 +5,13 @@ import { Row, Col, Input, Button, Layout, Card, AutoComplete, Modal, Select } fr
 import ProductList from './ProductList';
 import Cart from './Cart';
 import {
-  searchProducts, upadateCart
+  searchProducts
 } from '../slices/productSlice';
 import productService from '../services/productService';
-import userService from '../services/userService';
 import cartService from '../services/cartService';
 import paymentService from '../services/paymentService';
 import authService from "../services/authService";
-import {login} from "../slices/authSlice";
+import { login, logout } from "../slices/authSlice";
 
 
 const { Content } = Layout;
@@ -20,8 +19,8 @@ const { Meta } = Card;
 
 
 export const App = () => {
-  const [selectedUser, setSelectedUser] = useState('');
-  const [userForDelete, setUserForDelete] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+
 
   const [switchUserModalVisible, setSwitchUserModalVisible] = useState(false);
   const [logInEmail, setLogInEmail] = useState('');
@@ -31,23 +30,22 @@ export const App = () => {
   const [productPrice, setProductPrice] = useState('');
   const [productQuantity, setProductQuantity] = useState('');
   const [addUserModalVisible, setAddUserModalVisible] = useState(false);
-  const [name, setName] = useState('');
   const [registerEmail, setRegisterEmail] = useState('');
   const [registerUsername, setRegisterUsername] = useState('');
   const [registerPassword, setRegisterPassword] = useState('');
 
-  const totalPrice = useSelector((state) => state.product.totalPrice);
   const cartItems = useSelector((state) => state.product.cartItems);
   const products = useSelector((state) => state.product.products);
   const searchQuery = useSelector((state) => state.product.searchQuery);
   const dispatch = useDispatch();
 
-  const users = useSelector((state) => state.user.users);
-  const currentUser = useSelector((state) => state.user.currentUser);
   const theMostCurrentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
-    cartService.getCart(dispatch, theMostCurrentUser.id);
+    if(theMostCurrentUser !== null){
+      setLoggedIn(true);
+      cartService.getCart(dispatch, theMostCurrentUser.id);
+    }
     productService.getProducts(dispatch);
   }, []);
 
@@ -64,7 +62,7 @@ export const App = () => {
   };
 
   const handleAddToCart = (productId) => {
-    console.log(theMostCurrentUser.id);
+    console.log(theMostCurrentUser.id); 
     const newProductId = {
       id: productId
     };
@@ -142,19 +140,10 @@ export const App = () => {
       password: registerPassword,
     };
     authService.register(newUser);
-    // userService.createUser(dispatch, newUser);
     setAddUserModalVisible(false);
     setRegisterEmail('');
     setRegisterUsername('');
     setRegisterPassword('');
-  };
-
-  const handleSwitchUser = (userId) => {
-    userService.getUser(dispatch, userId);
-  };
-  
-  const handleClick = () => {
-    handleSwitchUser(selectedUser);
   };
 
   const handleLogInOperation = (logInEmail, logInPassword) => {
@@ -162,12 +151,11 @@ export const App = () => {
       "username": logInEmail,
       "password": logInPassword
     }
-    // console.log(newLoginInfo);
-    // userService.getUserByEmail(dispatch, newLoginInfo);
     authService.login(newLoginInfo).then((user) => {
       console.log(user)
       dispatch(login(user))
       cartService.getCart(dispatch, user.id);
+      setLoggedIn(true);
     })
   };
   
@@ -178,12 +166,11 @@ export const App = () => {
     setLogInPassword('');
   };
 
-  const handleDeleteUser = (userId) => {
-    userService.deleteUser(dispatch, userId);
-  };
-  
-  const handleClickDelete = () => {
-    handleDeleteUser(userForDelete);
+  const handleLogout = () => {
+    authService.logout().then(() => {
+      dispatch(logout());
+      setLoggedIn(false);
+    });
   };
 
   return (
@@ -239,35 +226,18 @@ export const App = () => {
               )}
               <div style={{ marginTop: 20 }}>
                 <h4>Действия с пользователем:</h4>
-                {/*
-                <Input
-                  placeholder="Id"
-                  style={{ width: 200 }}
-                  value={selectedUser}
-                  onChange={e => setSelectedUser(e.target.value)}
-                />
-                <Button type="primary" onClick={handleClick} style={{ marginTop: 10 }}>
-                  Сменить
-                </Button>
-                <div style={{ marginTop: 20 }}>
-                <Input
-                  placeholder="Id"
-                  style={{ width: 200 }}
-                  value={userForDelete}
-                  onChange={e => setUserForDelete(e.target.value)}
-                />
-                  <Button type="primary" onClick={handleClickDelete} style={{ marginTop: 10 }}>
-                    Удалить
-                  </Button>
-                </div> */}
                 <Row  gutter={[1,1]} justify="space-between" align="middle" style={{ marginTop: 20 }}>
                   <Col></Col>
-                  <Button type="primary" onClick={() => setSwitchUserModalVisible(true)}>
+                  <Button type="primary" onClick={() => setSwitchUserModalVisible(true)} style={{ display: loggedIn ? 'none' : 'inline-block' }}>
                     Вход
                   </Button>
-                  <Button type="primary" onClick={() => setAddUserModalVisible(true)}>
+                  <Button type="primary" onClick={() => setAddUserModalVisible(true)} style={{ display: loggedIn ? 'none' : 'inline-block' }}>
                     Регистрация
                   </Button>
+                  <Button type="primary" onClick={handleLogout} style={{ display: loggedIn ? 'inline-block' : 'none' }}>
+                    Выход
+                  </Button>
+
                   <Col></Col>
                   </Row>
               </div>

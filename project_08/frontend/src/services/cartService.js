@@ -1,10 +1,6 @@
 import axios from "axios";
-import {getUser} from "./userService";
-import authService from "../services/authService";
 import {setCart} from "../slices/productSlice";
 import authHeader from "./authHeader";
-import { upadateCart
-  } from '../slices/productSlice';
 
 const API_URL = "http://localhost:8080/shopping-carts";
 

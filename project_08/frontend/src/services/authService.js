@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 const API_URL = "http://localhost:8080/api/auth/";
 
 const register = (registration) => {
@@ -31,8 +30,11 @@ const login = (login) => {
 };
 
 const logout = () => {
-    console.log("logout")
-    localStorage.removeItem("user");
+    console.log("logout");
+    return new Promise((resolve, reject) => {
+        localStorage.removeItem("user");
+        resolve(); 
+    });
 };
 
 const authService = {

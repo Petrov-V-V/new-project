@@ -21,10 +21,7 @@ export const productSlice = createSlice({
       state.filteredProducts = state.products.filter((product) =>
         product.name.toLowerCase().includes(state.searchQuery.toLowerCase())
       );
-    },
-    upadateCart: (state, action) => {
-      state.cartItems = state.cartItems;
-    },
+    }
 
   }
 });
@@ -32,8 +29,7 @@ export const productSlice = createSlice({
 export const {
   searchProducts,
   set,
-  setCart,
-  upadateCart
+  setCart
 } = productSlice.actions;
 
 export default productSlice.reducer;

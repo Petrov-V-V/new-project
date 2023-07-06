@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Form, Input, Card, Row, Col, Button } from 'antd';
 
 const { Meta } = Card;
@@ -7,7 +7,6 @@ const { Meta } = Card;
 
 const ProductList = ({ addToCart, deleteProduct, changePrice, changeName, changeQuantity }) => {
   const products = useSelector((state) => state.product.filteredProducts);
-  const dispatch = useDispatch();
 
   const [newQuantity, setNewQuantity] = useState('');
   const [newPrice, setNewPrice] = useState('');
