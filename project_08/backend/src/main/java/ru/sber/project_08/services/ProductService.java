@@ -1,10 +1,13 @@
 package ru.sber.project_08.services;
 
 import ru.sber.project_08.entities.Product;
+import ru.sber.project_08.repositories.ProductCartRepository;
 import ru.sber.project_08.repositories.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,10 +18,12 @@ import java.util.Optional;
 @Service
 public class ProductService implements ProductServiceInterface{
     private final ProductRepository productRepository;
+    private final ProductCartRepository productCartRepository;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ProductCartRepository productCartRepository) {
         this.productRepository = productRepository;
+        this.productCartRepository = productCartRepository;
     }
 
     public long save(Product product) {
@@ -42,7 +47,9 @@ public class ProductService implements ProductServiceInterface{
         return true;
     }
 
+    @Transactional
     public boolean deleteById(long id) {
+        productCartRepository.deleteByProductId(id);
         productRepository.deleteById(id);
 
         return true;

@@ -37,15 +37,18 @@ public class CartService implements CartServiceInterface {
     }
 
     public Optional<Cart> addProduct(long cartId, Product product, int count) {
+        
         Optional<Cart> optionalCart = cartRepository.findById(cartId);
 
         if (optionalCart.isPresent()) {
-            Cart cart = optionalCart.get();
-            ProductCart productCart = new ProductCart(0, product, cart, count);
-            System.out.println(productCart);
-            productCartRepository.save(productCart);
+            if(!(productCartRepository.existsByCartIdAndProductId(cartId, (long) product.getId()))){
+                Cart cart = optionalCart.get();
+                ProductCart productCart = new ProductCart(0, product, cart, count);
+                System.out.println(productCart);
+                productCartRepository.save(productCart);
 
-            return Optional.of(cart);
+                return Optional.of(cart);
+            }
         }
 
         return Optional.empty();
@@ -124,32 +127,32 @@ public class CartService implements CartServiceInterface {
         return listOfProducts;
     }
     
-public List<CartProducts> getCartProducts(long id) {
-        List<Product> listOfProducts = new ArrayList<>();
-        Optional<Cart> optionalCart = findById(id);
-        
-        if (optionalCart.isPresent()) {
-            Cart cart = optionalCart.get();
-            List<ProductCart> productCarts = productCartRepository.findByCart(cart);
-            List<CartProducts> cartProducts = new ArrayList<>();
+    public List<CartProducts> getCartProducts(long id) {
+            List<Product> listOfProducts = new ArrayList<>();
+            Optional<Cart> optionalCart = findById(id);
             
-            for (ProductCart productCart : productCarts) {
-                Product product = productCart.getProduct();
-                int quantity = productCart.getCount();
+            if (optionalCart.isPresent()) {
+                Cart cart = optionalCart.get();
+                List<ProductCart> productCarts = productCartRepository.findByCart(cart);
+                List<CartProducts> cartProducts = new ArrayList<>();
                 
-                CartProducts cartProduct = new CartProducts(
-                        product.getId(),
-                        product.getCount(),
-                        quantity
-                );
-                cartProducts.add(cartProduct);
-            }
-            
-            return cartProducts;
-    }
+                for (ProductCart productCart : productCarts) {
+                    Product product = productCart.getProduct();
+                    int quantity = productCart.getCount();
+                    
+                    CartProducts cartProduct = new CartProducts(
+                            product.getId(),
+                            product.getCount(),
+                            quantity
+                    );
+                    cartProducts.add(cartProduct);
+                }
+                
+                return cartProducts;
+        }
 
-    return Collections.emptyList();
-}
+        return Collections.emptyList();
+    }
 
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Card, Button, InputNumber, List, Row, Col } from 'antd';
+import { Card, Button, InputNumber, List, Row, Col, message } from 'antd';
 
 const Cart = ({ clearCart, removeFromCart, changeQuantity, doPayment }) => {
   const cartItems = useSelector((state) => state.product.cartItems);
@@ -15,9 +15,8 @@ const Cart = ({ clearCart, removeFromCart, changeQuantity, doPayment }) => {
 
   const handlePayment = () => {
     if (cartItems.length === 0) {
-      window.alert('Корзина пуста!');
+      message.warning("Корзина пуста");
     } else {
-      window.alert('Запрос на оплату был отправлен!');
       doPayment();
     }
   };
