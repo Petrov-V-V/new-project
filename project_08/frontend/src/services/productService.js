@@ -1,6 +1,8 @@
 import axios from "axios";
 import { set, searchProducts } from '../slices/productSlice';
+import cartService from '../services/cartService';
 import authHeader from "./authHeader";
+import { message } from "antd";
 
 
 const API_URL = "http://localhost:8080/products";
@@ -34,6 +36,7 @@ const createProduct = (dispatch, product) => {
         getProducts(dispatch);
       },
       (error) => {
+        message.error("Недостаточно прав");
         const _content =
           (error.response && error.response.data) ||
           error.message ||
@@ -52,6 +55,7 @@ const deleteProduct = (dispatch, id) => {
         getProducts(dispatch);
       },
       (error) => {
+        message.error("Недостаточно прав");
         const _content =
           (error.response && error.response.data) ||
           error.message ||
@@ -62,12 +66,14 @@ const deleteProduct = (dispatch, id) => {
     );
 };
 
-const updateProduct = (dispatch, product) => {
+const updateProduct = (dispatch, product, userId) => {
     return axios.put(API_URL, product,  {headers: authHeader()}).then(
         (response) => {
-            getProducts(dispatch)
+            getProducts(dispatch);
+            cartService.getCart(dispatch, userId);
         },
         (error) => {
+          message.error("Недостаточно прав");
             const _content = (error.response && error.response.data) ||
                 error.message ||
                 error.toString();

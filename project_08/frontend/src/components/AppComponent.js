@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Row, Col, Input, Button, Layout, Card, AutoComplete, Modal, Select } from 'antd';
+import { Row, Col, Input, Button, Layout, Card, AutoComplete, Modal, Select, message } from 'antd';
 import ProductList from './ProductList';
 import Cart from './Cart';
 import {
@@ -42,10 +42,6 @@ export const App = () => {
   const theMostCurrentUser = useSelector((state) => state.auth.user);
 
   useEffect(() => {
-    if(theMostCurrentUser !== null){
-      setLoggedIn(true);
-      cartService.getCart(dispatch, theMostCurrentUser.id);
-    }
     productService.getProducts(dispatch);
   }, []);
 
@@ -62,11 +58,11 @@ export const App = () => {
   };
 
   const handleAddToCart = (productId) => {
-    console.log(theMostCurrentUser.id); 
+    const currentUserId = theMostCurrentUser !== null ? theMostCurrentUser.id : 0;
     const newProductId = {
       id: productId
     };
-    cartService.addProductToCart(dispatch, theMostCurrentUser.id, newProductId);
+    cartService.addProductToCart(dispatch, currentUserId, newProductId);
   };
 
   const handleClearCart = () => {
@@ -93,6 +89,9 @@ export const App = () => {
         count: productQuantity,
     };
     productService.createProduct(dispatch, newProduct);
+    setProductName('');
+    setProductPrice('');
+    setProductQuantity('');
   };
 
   const handleDeleteProduct = (productId) => {
@@ -107,7 +106,8 @@ export const App = () => {
         price: newPrice,
         count: oldProduct.count,
     };
-    productService.updateProduct(dispatch, newProduct);
+    const currentUserId = theMostCurrentUser !== null ? theMostCurrentUser.id : 0;
+    productService.updateProduct(dispatch, newProduct, currentUserId);
   };
 
   const handleChangeName = (productId, newName) => {
@@ -118,7 +118,8 @@ export const App = () => {
         price: oldProduct.price,
         count: oldProduct.count,
     };
-    productService.updateProduct(dispatch, newProduct);
+    const currentUserId = theMostCurrentUser !== null ? theMostCurrentUser.id : 0;
+    productService.updateProduct(dispatch, newProduct, currentUserId);
   };
 
   const handleChangeQuantityInDB = (productId, newQuantity) => {
@@ -129,8 +130,30 @@ export const App = () => {
         price: oldProduct.price,
         count: newQuantity,
     };
+    const currentUserId = theMostCurrentUser !== null ? theMostCurrentUser.id : 0;
+    productService.updateProduct(dispatch, newProduct, currentUserId);
+  };
+
+  const handleChangeProduct = (productId, newPrice, newName, newQuantity) => {
+    const oldProduct = products.find(product => product.id === productId)
+    if (newPrice === undefined){
+      newPrice = oldProduct.price
+    }
+    if (newName === undefined){
+      newName = oldProduct.name
+    }
+    if (newQuantity === undefined){
+      newQuantity = oldProduct.count
+    }
+    const newProduct = {
+        id: productId,
+        name: newName,
+        price: newPrice,
+        count: newQuantity,
+    };
     console.log(newProduct);
-    productService.updateProduct(dispatch, newProduct);
+    const currentUserId = theMostCurrentUser !== null ? theMostCurrentUser.id : 0;
+    productService.updateProduct(dispatch, newProduct, currentUserId);
   };
 
   const handleAddUser = () => {
@@ -156,8 +179,16 @@ export const App = () => {
       dispatch(login(user))
       cartService.getCart(dispatch, user.id);
       setLoggedIn(true);
-    })
-  };
+    },
+    (error) => {
+      message.error("Данные введены неверно");
+        const _content = (error.response && error.response.data) ||
+            error.message ||
+            error.toString();
+
+        console.error(_content)
+    });
+    };
   
   const handleClickLogIn = () => {
     handleLogInOperation(logInEmail, logInPassword);
@@ -203,10 +234,11 @@ export const App = () => {
               changePrice={handleChangePrice}
               changeName={handleChangeName}
               changeQuantity={handleChangeQuantityInDB}
+              changeProduct={handleChangeProduct}
             />
-            <Button type="primary" onClick={() => setAddProductModalVisible(true)} style={{ marginTop: '20px' }}>
+            {(theMostCurrentUser && theMostCurrentUser.roles[0] === "ROLE_ADMIN") && <Button type="primary" onClick={() => setAddProductModalVisible(true)} style={{ marginTop: '20px' }}>
               Добавить продукт
-            </Button>
+            </Button>}
           </Col>
           <Col>
             <Cart
@@ -224,66 +256,10 @@ export const App = () => {
                   />
                 </Card>
               )}
-              <div style={{ marginTop: 20 }}>
-                <h4>Действия с пользователем:</h4>
-                <Row  gutter={[1,1]} justify="space-between" align="middle" style={{ marginTop: 20 }}>
-                  <Col></Col>
-                  <Button type="primary" onClick={() => setSwitchUserModalVisible(true)} style={{ display: loggedIn ? 'none' : 'inline-block' }}>
-                    Вход
-                  </Button>
-                  <Button type="primary" onClick={() => setAddUserModalVisible(true)} style={{ display: loggedIn ? 'none' : 'inline-block' }}>
-                    Регистрация
-                  </Button>
-                  <Button type="primary" onClick={handleLogout} style={{ display: loggedIn ? 'inline-block' : 'none' }}>
-                    Выход
-                  </Button>
-
-                  <Col></Col>
-                  </Row>
-              </div>
           </Col>
         </Row>
       </Content>
     </Layout>
-      <Modal
-        title="Регистрация"
-        visible={addUserModalVisible}
-        onOk={handleAddUser}
-        onCancel={() => setAddUserModalVisible(false)}
-      >
-        <Input style={{ marginTop: 10 }}
-          placeholder="Email"
-          value={registerEmail}
-          onChange={(e) => setRegisterEmail(e.target.value)}
-        />
-        <Input style={{ marginTop: 10 }}
-          placeholder="Логин" 
-          value={registerUsername}
-          onChange={(e) => setRegisterUsername(e.target.value)}
-        />
-        <Input style={{ marginTop: 10 }}
-          placeholder="Пароль"
-          value={registerPassword}
-          onChange={(e) => setRegisterPassword(e.target.value)}
-        />        
-      </Modal>
-      <Modal
-        title="Вход"
-        visible={switchUserModalVisible}
-        onOk={handleClickLogIn}
-        onCancel={() => setSwitchUserModalVisible(false)}
-      >
-        <Input style={{ marginTop: 10 }}
-          placeholder="Email"
-          value={logInEmail}
-          onChange={(e) => setLogInEmail(e.target.value)}
-        />
-        <Input style={{ marginTop: 10 }}
-          placeholder="Пароль"
-          value={logInPassword}
-          onChange={(e) => setLogInPassword(e.target.value)}
-        />    
-      </Modal>
       <Modal
         title="Добавление продукта"
         visible={addProductModalVisible}
